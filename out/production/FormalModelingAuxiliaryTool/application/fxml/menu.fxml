@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.input.KeyCodeCombination?>
+
+<MenuBar xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MenuController">
+  <menus>
+    <Menu mnemonicParsing="false" text="%menu.main.file">
+      <items>
+            <MenuItem fx:id="newprojectmenu" mnemonicParsing="false" onAction="#onNewProjectClick" text="%menu.file.newPrj">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+        <MenuItem fx:id="newmodelmenu" mnemonicParsing="false" onAction="#onNewModelClick" text="%menu.file.newModule" />
+            <MenuItem fx:id="newfuncmenu" mnemonicParsing="false" onAction="#onNewFuncClick" text="%menu.file.newFunc" />
+            <MenuItem fx:id="openprjmenu" mnemonicParsing="false" onAction="#onOpenProjectClick" text="%menu.file.openPrj">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="saveprojectmenu" mnemonicParsing="false" onAction="#onSaveProjectClick" text="%menu.file.savePrj">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+      </items>
+    </Menu>
+      <Menu mnemonicParsing="false" text="%menu.main.edit">
+         <items>
+            <MenuItem fx:id="cutmenu" mnemonicParsing="false" onAction="#onCutClick" text="%menu.edit.cut">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="copymenu" mnemonicParsing="false" onAction="#onCopyClick" text="%menu.edit.copy">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+            <MenuItem fx:id="pastemenu" mnemonicParsing="false" onAction="#onPasteClick" text="%menu.edit.paste">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </MenuItem>
+         </items>
+      </Menu>
+    <Menu mnemonicParsing="false" text="%menu.main.help">
+      <items>
+        <MenuItem fx:id="updatemenu" mnemonicParsing="false" onAction="#onUpdateClick" text="%menu.help.update" />
+            <MenuItem fx:id="aboutmenu" mnemonicParsing="false" onAction="#onAboutClick" text="%menu.help.about" />
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>
