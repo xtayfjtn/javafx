@@ -1,12 +1,15 @@
 package application.controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -62,8 +65,9 @@ public class ProjectController implements Initializable {
 
             MenuItem addMenuItem = new MenuItem("添加模块");
             addMenuItem.setOnAction((ActionEvent t) -> {
-                TreeItem newEmployee = new TreeItem<>("新模块");
-                getTreeItem().getChildren().add(newEmployee);
+                mainController.addModel(this);
+//                TreeItem newEmployee = new TreeItem<>("新模块");
+//                getTreeItem().getChildren().add(newEmployee);
             });
             projectMenu.getItems().add(addMenuItem);
 
@@ -74,9 +78,10 @@ public class ProjectController implements Initializable {
             });
             MenuItem addFuncItem = new MenuItem("添加功能点");
             addFuncItem.setOnAction((ActionEvent t) -> {
-                TreeItem newFunc = new TreeItem("新功能点");
-                System.out.println(getTreeItem().getParent().getParent());
-                getTreeItem().getChildren().add(newFunc);
+                mainController.addFunc(this);
+//                TreeItem newFunc = new TreeItem("新功能点");
+//                System.out.println(getTreeItem().getParent().getParent());
+//                getTreeItem().getChildren().add(newFunc);
             });
             modelMenu.getItems().add(addFuncItem);
             modelMenu.getItems().add(modelInfoItem);
@@ -92,20 +97,28 @@ public class ProjectController implements Initializable {
         @Override
         public void startEdit() {
             super.startEdit();
-
-            if (textField == null) {
-                createTextField();
+            System.out.print("dfdsfs");
+            if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
+//                mainController.funcedit(this);
+            } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
+                mainController.seeInfo(this);
+            } else {
+                mainController.funcedit(this);
             }
-            setText(null);
-            setGraphic(textField);
-            textField.selectAll();
+//            if (textField == null) {
+//                createTextField();
+//            }
+//            setText(null);
+//            setGraphic(textField);
+//            textField.selectAll();
         }
 
         @Override
         public void cancelEdit() {
             super.cancelEdit();
-            setText((String) getItem());
-            setGraphic(getTreeItem().getGraphic());
+            System.out.println("dfd");
+//            setText((String) getItem());
+//            setGraphic(getTreeItem().getGraphic());
         }
 
         @Override

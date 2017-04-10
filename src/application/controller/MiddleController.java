@@ -2,10 +2,7 @@ package application.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -58,16 +55,44 @@ public class MiddleController implements Initializable {
     /*
     模块涉及函数
      */
+    //新建模块
+    public void initModel(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+        System.out.println("middle.controller.initmodel");
+        mMiddle.getChildren().clear();
+        Label projectname = new Label("模块名");
+        TextField nametxt = new TextField("新模块");
+        Button confirm = new Button("确定");
+        confirm.setOnAction(event -> {
+            String name = nametxt.getText();
+            if (name.equals("")) {
+                System.out.println("null");
+            } else {
+                mMiddle.getChildren().clear();
+                TreeItem newModel = new TreeItem<>(name);
+                textFieldTreeCell.getTreeItem().getChildren().addAll(newModel);
+            }
+        });
+        Button cancel = new Button("取消");
+        cancel.setOnAction(event -> {
+            mMiddle.getChildren().clear();
+        });
+        mMiddle.add(projectname, 0, 0);
+        mMiddle.add(nametxt, 1, 0);
+        mMiddle.add(confirm, 0, 1);
+        mMiddle.add(cancel, 1, 1);
+    }
     //模块详细描述
     public void infoShown(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
         mMiddle.getChildren().clear();
         Label projectname = new Label("模块名");
         TextField nametxt = new TextField(textFieldTreeCell.getText());
-        nametxt.setEditable(false);
+        nametxt.setEditable(true);
         Label modelInfo = new Label("模块描述");
         TextArea infoText = new TextArea(textFieldTreeCell.modelInfo);
-        Button confirm = new Button("确定");
-        confirm.setOnAction(event -> {
+        Label modelActionlab = new Label("模块行为");
+        TextArea modelAction = new TextArea();
+        Button confirmbtn = new Button("确定");
+        confirmbtn.setOnAction(event -> {
             String name = nametxt.getText();
             if (name.equals("")) {
                 System.out.println("null");
@@ -84,15 +109,16 @@ public class MiddleController implements Initializable {
         mMiddle.add(nametxt, 1, 0);
         mMiddle.add(modelInfo, 0, 1);
         mMiddle.add(infoText, 1, 1);
-        mMiddle.add(confirm, 0, 2);
-        mMiddle.add(cancel, 1, 2);
+        mMiddle.add(modelActionlab, 0, 2);
+        mMiddle.add(modelAction, 1, 2, 1, 2);
+        mMiddle.add(confirmbtn, 0, 3);
+        mMiddle.add(cancel, 1, 3);
     }
 
 
     /*
     功能点设计函数
      */
-
     //展示功能点详细信息
     public void funcShown(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
         mMiddle.getChildren().clear();
@@ -132,5 +158,32 @@ public class MiddleController implements Initializable {
         mMiddle.add(actionlab, 0, 4);
         mMiddle.add(confirmbtn, 0, 5);
         mMiddle.add(cancelbtn, 1, 5);
+    }
+
+    //初始化功能点
+    public void initFunc(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+        System.out.println("middle.controller.addfun");
+        mMiddle.getChildren().clear();
+        Label projectname = new Label("功能点");
+        TextField nametxt = new TextField("新功能");
+        Button confirm = new Button("确定");
+        confirm.setOnAction(event -> {
+            String name = nametxt.getText();
+            if (name.equals("")) {
+                System.out.println("null");
+            } else {
+                mMiddle.getChildren().clear();
+                TreeItem newFunc = new TreeItem<>(name);
+                textFieldTreeCell.getTreeItem().getChildren().addAll(newFunc);
+            }
+        });
+        Button cancel = new Button("取消");
+        cancel.setOnAction(event -> {
+            mMiddle.getChildren().clear();
+        });
+        mMiddle.add(projectname, 0, 0);
+        mMiddle.add(nametxt, 1, 0);
+        mMiddle.add(confirm, 0, 1);
+        mMiddle.add(cancel, 1, 1);
     }
 }

@@ -53,9 +53,18 @@ public class MainController implements Initializable {
     public void seeInfo(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.infoShown(textFieldTreeCell);
     }
+    //新建模块
+    public void addModel(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+        middleController.initModel(textFieldTreeCell);
+    }
 
     //查看功能点信息
     public void funcedit(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.funcShown(textFieldTreeCell);
+    }
+
+
+    public void addFunc(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+        middleController.initFunc(textFieldTreeCell);
     }
 }

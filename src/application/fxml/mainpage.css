@@ -1,0 +1,13 @@
+#project {
+-fx-background-color: #2f4f4f;
+width:100;
+}
+
+#middle {
+-fx-background-color: #2f4f4f;
+width:200;
+}
+
+#component {
+width:300;
+}
