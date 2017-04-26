@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
  */
 public class ProjectController implements Initializable {
     private MainController mainController;
+
     @FXML
     TreeView<String> projectTree;
     @Override
@@ -74,14 +75,10 @@ public class ProjectController implements Initializable {
             MenuItem modelInfoItem = new MenuItem("查看详情");
             modelInfoItem.setOnAction(event -> {
                 mainController.seeInfo(this);
-                System.out.println("查看详情");
             });
             MenuItem addFuncItem = new MenuItem("添加功能点");
             addFuncItem.setOnAction((ActionEvent t) -> {
                 mainController.addFunc(this);
-//                TreeItem newFunc = new TreeItem("新功能点");
-//                System.out.println(getTreeItem().getParent().getParent());
-//                getTreeItem().getChildren().add(newFunc);
             });
             modelMenu.getItems().add(addFuncItem);
             modelMenu.getItems().add(modelInfoItem);
@@ -97,7 +94,6 @@ public class ProjectController implements Initializable {
         @Override
         public void startEdit() {
             super.startEdit();
-            System.out.print("dfdsfs");
             if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
 //                mainController.funcedit(this);
             } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
@@ -105,20 +101,11 @@ public class ProjectController implements Initializable {
             } else {
                 mainController.funcedit(this);
             }
-//            if (textField == null) {
-//                createTextField();
-//            }
-//            setText(null);
-//            setGraphic(textField);
-//            textField.selectAll();
         }
 
         @Override
         public void cancelEdit() {
             super.cancelEdit();
-            System.out.println("dfd");
-//            setText((String) getItem());
-//            setGraphic(getTreeItem().getGraphic());
         }
 
         @Override
@@ -149,16 +136,16 @@ public class ProjectController implements Initializable {
             }
         }
 
-        private void createTextField() {
-            textField = new TextField(getString());
-            textField.setOnKeyReleased((KeyEvent t) -> {
-                if (t.getCode() == KeyCode.ENTER) {
-                    commitEdit(textField.getText());
-                } else if (t.getCode() == KeyCode.ESCAPE) {
-                    cancelEdit();
-                }
-            });
-        }
+//        private void createTextField() {
+//            textField = new TextField(getString());
+//            textField.setOnKeyReleased((KeyEvent t) -> {
+//                if (t.getCode() == KeyCode.ENTER) {
+//                    commitEdit(textField.getText());
+//                } else if (t.getCode() == KeyCode.ESCAPE) {
+//                    cancelEdit();
+//                }
+//            });
+//        }
 
         private String getString() {
             return getItem() == null ? "" : getItem().toString();

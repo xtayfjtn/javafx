@@ -1,0 +1,12 @@
+/*#componentPane {*/
+    /*visibility: hidden;*/
+/*}*/
+
+#linecom {
+    -fx-pref-width: 10px;
+}
+
+.choosen {
+    -fx-background-color: aqua;
+    -fx-fill: brown;
+}

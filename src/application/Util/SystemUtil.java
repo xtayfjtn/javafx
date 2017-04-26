@@ -1,5 +1,6 @@
-package application.log;
+package application.Util;
 
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -10,5 +11,10 @@ public class SystemUtil {
     public static String getLanguage() {
         Locale locale = Locale.getDefault();
         return locale.getLanguage();
+    }
+
+    public static Date getTime() {
+        Date date = new Date();
+        return date;
     }
 }

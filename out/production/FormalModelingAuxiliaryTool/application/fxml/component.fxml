@@ -1,20 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import java.net.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<TabPane fx:id="componentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="application.controller.ComponentController">
+<TabPane fx:id="componentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="150.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ComponentController">
   <tabs>
-    <Tab text="Untitled Tab 1">
+    <Tab text="图形元素">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Pane fx:id="startpane" layoutX="25.0" layoutY="14.0" onMouseClicked="#onStartClicked" prefHeight="70.0" prefWidth="100.0">
+                     <children>
+                        <Circle fill="#0a0a0a" layoutX="50.0" layoutY="35.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="ellipsepane" layoutX="25.0" layoutY="84.0" onMouseClicked="#onEllipseClicked" prefHeight="70.0" prefWidth="100.0">
+                     <children>
+                        <Ellipse fx:id="ellipsecom" fill="WHITE" layoutX="50.0" layoutY="35.0" radiusX="50.0" radiusY="35.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="branchpane" layoutX="25.0" layoutY="162.0" onMouseClicked="#onBranchClicked" prefHeight="70.0" prefWidth="100.0">
+                     <children>
+                        <Polygon fill="WHITE" layoutX="50.0" layoutY="37.0" stroke="BLACK" strokeType="INSIDE">
+                          <points>
+                            <Double fx:value="-45.0" />
+                            <Double fx:value="0.0" />
+                            <Double fx:value="0.0" />
+                            <Double fx:value="25.0" />
+                            <Double fx:value="45.0" />
+                            <Double fx:value="0.0" />
+                            <Double fx:value="0.0" />
+                            <Double fx:value="-25.0" />
+                          </points>
+                        </Polygon>
+                     </children></Pane>
+                  <Pane fx:id="synchpane" layoutX="25.0" layoutY="232.0" onMouseClicked="#onSynchClicked" prefHeight="70.0" prefWidth="100.0">
+                     <children>
+                        <Line fx:id="linecom" endX="45.0" layoutX="50.0" layoutY="35.0" startX="-45.0" strokeWidth="10.0">
+                           <fill>
+                              <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                 <stops>
+                                    <Stop color="BLACK" />
+                                    <Stop color="WHITE" offset="1.0" />
+                                 </stops>
+                              </RadialGradient>
+                           </fill>
+                        </Line>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="endpane" layoutX="25.0" layoutY="308.0" onMouseClicked="#onEndClicked" prefHeight="70.0" prefWidth="100.0">
+                     <children>
+                        <Circle fill="WHITE" layoutX="50.0" layoutY="35.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle layoutX="50.0" layoutY="35.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="arrowpane" layoutX="25.0" layoutY="395.0" onMouseClicked="#onArrowClicked" prefHeight="70.0" prefWidth="100.0">
+                     <children>
+                        <Line endX="45.0" layoutX="50.0" layoutY="35.0" startX="-45.0" />
+                        <Polyline fill="BLACK" layoutX="96.0" layoutY="35.0" rotate="270.0" strokeType="INSIDE">
+                          <points>
+                            <Double fx:value="-5.0" />
+                            <Double fx:value="-4.0" />
+                            <Double fx:value="5.0" />
+                            <Double fx:value="-4.0" />
+                            <Double fx:value="0.0" />
+                            <Double fx:value="6.0" />
+                            <Double fx:value="-5.0" />
+                            <Double fx:value="-4.0" />
+                          </points>
+                        </Polyline>
+                     </children>
+                  </Pane>
+               </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Untitled Tab 2">
+    <Tab text="行为组合">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
     </Tab>
   </tabs>
+  <stylesheets>
+    <URL value="@component.css" />
+  </stylesheets>
 </TabPane>

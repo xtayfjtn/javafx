@@ -1,13 +1,17 @@
-#project {
--fx-background-color: #2f4f4f;
-width:100;
-}
 
-#middle {
--fx-background-color: #2f4f4f;
-width:200;
-}
+/*#mMiddle {*/
+    /*-fx-min-width: 400px;*/
+    /*-fx-max-width: 400px;*/
+/*}*/
 
-#component {
-width:300;
-}
+/*#projectTree {*/
+    /*-fx-min-width: 200px;*/
+    /*-fx-max-width: 200px;*/
+    /*-fx-fill-width: 1000;*/
+/*}*/
+
+/*#componentPane {*/
+    /*-fx-max-width: 200px;*/
+    /*-fx-min-width: 200px;*/
+    /*-fx-background-color: aliceblue;*/
+/*}*/

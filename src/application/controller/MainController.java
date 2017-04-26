@@ -25,6 +25,7 @@ public class MainController implements Initializable {
     @FXML MenuController menuController;
     @FXML ProjectController projectController;
     @FXML MiddleController middleController;
+    @FXML ComponentController componentController;
 
 
     @Override
@@ -32,6 +33,7 @@ public class MainController implements Initializable {
         menuController.init(this);
         projectController.init(this);
         middleController.init(this);
+        componentController.init(this);
         //initProject();
     }
 
@@ -66,5 +68,13 @@ public class MainController implements Initializable {
 
     public void addFunc(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.initFunc(textFieldTreeCell);
+    }
+
+    public void showComponent() {
+        componentController.showPane();
+    }
+
+    public void hideComponent() {
+        componentController.hidePane();
     }
 }

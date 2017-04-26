@@ -1,0 +1,28 @@
+/*.label {*/
+    /*-fx-pref-width: 100px;*/
+    /*-fx-alignment: center-right;*/
+    /*-fx-text-alignment: right;*/
+/*}*/
+
+#mMiddle {
+    -fx-alignment: center;
+    -fx-background-color: aqua;
+}
+
+.canvasto {
+    -fx-background-color: aqua;
+}
+
+.wodepane {
+    -fx-background-color: aqua;
+    -fx-border-color: #000000;
+}
+
+.drawpane {
+    -fx-background-color: bisque;
+    -fx-pref-height: 300px;
+}
+
+.ellipsecom {
+    -fx-background-color: aquamarine;
+}
