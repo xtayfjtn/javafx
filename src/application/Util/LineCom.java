@@ -1,6 +1,7 @@
 package application.Util;
 
 import com.sun.javafx.geom.Edge;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 

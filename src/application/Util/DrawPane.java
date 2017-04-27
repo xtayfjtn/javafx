@@ -1,6 +1,8 @@
 package application.Util;
 
 import application.controller.ComponentController;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
@@ -17,6 +19,11 @@ public class DrawPane extends Pane {
     private final double circleR = 15;
     private final double synchR = 40;
 
+    public DoubleProperty startX;
+    public DoubleProperty startY;
+    public DoubleProperty endX;
+    public DoubleProperty endY;
+
     public int type = 0;
 
     public DrawPane() {
@@ -24,6 +31,15 @@ public class DrawPane extends Pane {
         addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
             double eventX = e.getX();
             double eventY = e.getY();
+            if (startX == null && startY == null) {
+                startX = new SimpleDoubleProperty(eventX);
+                startY = new SimpleDoubleProperty(eventY);
+            }
+            else if (endX == null && endY == null){
+                endX = new SimpleDoubleProperty(eventX);
+                endY = new SimpleDoubleProperty(eventY);
+            }
+
             double width = getWidth();
             double height = getHeight();
             type = ComponentController.type;
@@ -61,7 +77,21 @@ public class DrawPane extends Pane {
     }
 
     private void drawLine() {
-
+        if (startX != null && startY != null && endX != null && endY != null) {
+            Line line = new ArrowCom(startX, startY, endX, endY);
+            getChildren().add(line);
+            startX = null;
+            startY = null;
+            endX = null;
+            endY = null;
+//            startX = new SimpleDoubleProperty();
+//            startY = new SimpleDoubleProperty();
+//            endX = new SimpleDoubleProperty();
+//            endY = new SimpleDoubleProperty();
+            if (startX == null) {
+                System.out.println("这是空的！");
+            }
+        }
     }
 
     private void drawBranch(double eventX, double eventY) {
@@ -85,8 +115,10 @@ public class DrawPane extends Pane {
     }
 
     private void drawStart(double x, double y, double radius, Paint fill) {
-        CircleCom cc = new CircleCom(x, y, radius, fill, this);
-        getChildren().add(cc);
+//        CircleCom cc = new CircleCom(x, y, radius, fill, this);
+        CircleCom start = new CircleCom(Color.PALEGREEN, startX, startY, radius, this);
+//        CircleCom end = new CircleCom(Color.TOMATO, endX, endY);
+        getChildren().add(start);
     }
 
     private void drawSynch(double x, double y) {
@@ -97,10 +129,14 @@ public class DrawPane extends Pane {
 
     private void drawEnd(double x, double y, double radius) {
 
-        EndCircleCom ecc = new EndCircleCom(x, y, radius, this);
-        RadialGradient gradient = new RadialGradient(0, .5, x, y, 20, false, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(.8, Color.BLACK), new Stop(.8, Color.WHITE), new Stop(1, Color.WHITE));
-        ecc.setFill(gradient);
-        ecc.setStroke(Color.BLACK);
-        getChildren().add(ecc);
+        CircleCom end = new CircleCom(Color.PALEGREEN, endX, endY, radius, this);
+//        CircleCom end = new CircleCom(Color.TOMATO, endX, endY);
+        getChildren().add(end);
+        //以下是正式代码，以上是调试代码
+//        EndCircleCom ecc = new EndCircleCom(x, y, radius, this);
+//        RadialGradient gradient = new RadialGradient(0, .5, x, y, 20, false, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(.8, Color.BLACK), new Stop(.8, Color.WHITE), new Stop(1, Color.WHITE));
+//        ecc.setFill(gradient);
+//        ecc.setStroke(Color.BLACK);
+//        getChildren().add(ecc);
     }
 }
