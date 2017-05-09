@@ -6,6 +6,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Ellipse;
 
+import java.awt.*;
+
 /**
  * Created by ZQ on 2017/4/9.
  */
@@ -14,6 +16,7 @@ public class ComponentController {
     public static int type = 0;
     @FXML TabPane componentPane;
     @FXML Ellipse ellipsecom;
+    @FXML Pane selectpane;
     @FXML Pane startpane;
     @FXML Pane ellipsepane;
     @FXML Pane branchpane;
@@ -33,7 +36,18 @@ public class ComponentController {
         componentPane.setVisible(false);
     }
 
+    public void onSelectClicked(MouseEvent mouseEvent) {
+        selectpane.getStyleClass().add("choosen");
+        startpane.getStyleClass().removeAll("choosen");
+        ellipsepane.getStyleClass().removeAll("choosen");
+        branchpane.getStyleClass().removeAll("choosen");
+        synchpane.getStyleClass().removeAll("choosen");
+        endpane.getStyleClass().removeAll("choosen");
+        arrowpane.getStyleClass().removeAll("choosen");
+        type = 0;
+    }
     public void onStartClicked(MouseEvent mouseEvent) {
+        selectpane.getStyleClass().removeAll("choosen");
         startpane.getStyleClass().add("choosen");
         ellipsepane.getStyleClass().removeAll("choosen");
         branchpane.getStyleClass().removeAll("choosen");
@@ -44,6 +58,7 @@ public class ComponentController {
     }
 
     public void onEllipseClicked(MouseEvent mouseEvent) {
+        selectpane.getStyleClass().removeAll("choosen");
         startpane.getStyleClass().removeAll("choosen");
         ellipsepane.getStyleClass().add("choosen");
         branchpane.getStyleClass().removeAll("choosen");
@@ -54,6 +69,7 @@ public class ComponentController {
     }
 
     public void onBranchClicked(MouseEvent mouseEvent) {
+        selectpane.getStyleClass().removeAll("choosen");
         startpane.getStyleClass().removeAll("choosen");
         ellipsepane.getStyleClass().removeAll("choosen");
         branchpane.getStyleClass().add("choosen");
@@ -64,6 +80,7 @@ public class ComponentController {
     }
 
     public void onSynchClicked(MouseEvent mouseEvent) {
+        selectpane.getStyleClass().removeAll("choosen");
         startpane.getStyleClass().removeAll("choosen");
         ellipsepane.getStyleClass().removeAll("choosen");
         branchpane.getStyleClass().removeAll("choosen");
@@ -76,6 +93,7 @@ public class ComponentController {
 
 
     public void onEndClicked(MouseEvent mouseEvent) {
+        selectpane.getStyleClass().removeAll("choosen");
         startpane.getStyleClass().removeAll("choosen");
         ellipsepane.getStyleClass().removeAll("choosen");
         branchpane.getStyleClass().removeAll("choosen");
@@ -86,6 +104,7 @@ public class ComponentController {
     }
 
     public void onArrowClicked(MouseEvent mouseEvent) {
+        selectpane.getStyleClass().removeAll("choosen");
         startpane.getStyleClass().removeAll("choosen");
         ellipsepane.getStyleClass().removeAll("choosen");
         branchpane.getStyleClass().removeAll("choosen");

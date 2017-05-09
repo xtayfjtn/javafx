@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import java.net.*?>
@@ -8,23 +9,32 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<TabPane fx:id="componentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="150.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ComponentController">
+<TabPane fx:id="componentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="150.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ComponentController">
   <tabs>
     <Tab text="图形元素">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="150.0">
                <children>
-                  <Pane fx:id="startpane" layoutX="25.0" layoutY="14.0" onMouseClicked="#onStartClicked" prefHeight="70.0" prefWidth="100.0">
+                  <Pane fx:id="selectpane" layoutX="25.0" layoutY="14.0" onMouseClicked="#onSelectClicked" prefHeight="70.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resource/images/timg.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="startpane" layoutX="25.0" layoutY="81.0" onMouseClicked="#onStartClicked" prefHeight="70.0" prefWidth="100.0">
                      <children>
                         <Circle fill="#0a0a0a" layoutX="50.0" layoutY="35.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
                      </children>
                   </Pane>
-                  <Pane fx:id="ellipsepane" layoutX="25.0" layoutY="84.0" onMouseClicked="#onEllipseClicked" prefHeight="70.0" prefWidth="100.0">
+                  <Pane fx:id="ellipsepane" layoutX="25.0" layoutY="151.0" onMouseClicked="#onEllipseClicked" prefHeight="70.0" prefWidth="100.0">
                      <children>
                         <Ellipse fx:id="ellipsecom" fill="WHITE" layoutX="50.0" layoutY="35.0" radiusX="50.0" radiusY="35.0" stroke="BLACK" strokeType="INSIDE" />
                      </children>
                   </Pane>
-                  <Pane fx:id="branchpane" layoutX="25.0" layoutY="162.0" onMouseClicked="#onBranchClicked" prefHeight="70.0" prefWidth="100.0">
+                  <Pane fx:id="branchpane" layoutX="25.0" layoutY="229.0" onMouseClicked="#onBranchClicked" prefHeight="70.0" prefWidth="100.0">
                      <children>
                         <Polygon fill="WHITE" layoutX="50.0" layoutY="37.0" stroke="BLACK" strokeType="INSIDE">
                           <points>
@@ -39,7 +49,7 @@
                           </points>
                         </Polygon>
                      </children></Pane>
-                  <Pane fx:id="synchpane" layoutX="25.0" layoutY="232.0" onMouseClicked="#onSynchClicked" prefHeight="70.0" prefWidth="100.0">
+                  <Pane fx:id="synchpane" layoutX="25.0" layoutY="299.0" onMouseClicked="#onSynchClicked" prefHeight="70.0" prefWidth="100.0">
                      <children>
                         <Line fx:id="linecom" endX="45.0" layoutX="50.0" layoutY="35.0" startX="-45.0" strokeWidth="10.0">
                            <fill>
@@ -53,13 +63,13 @@
                         </Line>
                      </children>
                   </Pane>
-                  <Pane fx:id="endpane" layoutX="25.0" layoutY="308.0" onMouseClicked="#onEndClicked" prefHeight="70.0" prefWidth="100.0">
+                  <Pane fx:id="endpane" layoutX="25.0" layoutY="375.0" onMouseClicked="#onEndClicked" prefHeight="70.0" prefWidth="100.0">
                      <children>
                         <Circle fill="WHITE" layoutX="50.0" layoutY="35.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
                         <Circle layoutX="50.0" layoutY="35.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
                      </children>
                   </Pane>
-                  <Pane fx:id="arrowpane" layoutX="25.0" layoutY="395.0" onMouseClicked="#onArrowClicked" prefHeight="70.0" prefWidth="100.0">
+                  <Pane fx:id="arrowpane" layoutX="25.0" layoutY="462.0" onMouseClicked="#onArrowClicked" prefHeight="70.0" prefWidth="100.0">
                      <children>
                         <Line endX="45.0" layoutX="50.0" layoutY="35.0" startX="-45.0" />
                         <Polyline fill="BLACK" layoutX="96.0" layoutY="35.0" rotate="270.0" strokeType="INSIDE">

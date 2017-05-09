@@ -9,8 +9,8 @@ import javafx.scene.shape.Circle;
  * Created by ZQ on 2017/4/19.
  */
 public class EndCircleCom extends CircleCom {
-    public EndCircleCom(Color color, DoubleProperty x, DoubleProperty y) {
-        super(color, x, y);
+    public EndCircleCom(Color color, DoubleProperty x, DoubleProperty y, double radius, DrawPane pane) {
+        super(color, x, y, radius, pane);
     }
 //    private RadialGradient gradient = null;
 //    private double pWidth;

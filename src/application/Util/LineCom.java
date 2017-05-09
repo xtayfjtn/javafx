@@ -1,69 +1,31 @@
 package application.Util;
 
-import com.sun.javafx.geom.Edge;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.input.MouseEvent;
+import javafx.beans.property.DoubleProperty;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-
+import javafx.scene.shape.StrokeLineCap;
 
 /**
- * 线控件
- * Created by ZQ on 2017/4/19.
+ * Created by ZQ on 2017/5/4.
  */
 public class LineCom extends Line {
-
-    //主布局宽度
-    private double pWidth;
-    private double pHeight;
-    private DrawPane drawPane;
-    //控件宽度
-    private double mWidth;
-    public LineCom() {
+    public LineCom(DoubleProperty startX, DoubleProperty startY, DoubleProperty endX, DoubleProperty endY) {
+        super(startX.get(), startY.get(), endX.get(), endY.get());
+        setStrokeWidth(2);
+        setStroke(Color.GRAY.deriveColor(0, 1, 1, 0.5));
+        setStroke(Color.GRAY);
+        setStrokeLineCap(StrokeLineCap.BUTT);
+//        getStrokeDashArray().setAll(10.0, 5.0);
+        setMouseTransparent(true);
     }
 
-    public LineCom(double startX, double startY, double endX, double endY, DrawPane pane) {
-        super(startX, startY, endX, endY);
-        drawPane = pane;
-        pWidth = pane.getWidth();
-        pHeight = pane.getHeight();
-        mWidth = Math.abs(endX - startX) / 2;
-        addEvent();
+    public void bindStartProperties(DoubleProperty startX, DoubleProperty startY) {
+        startXProperty().bind(startX);
+        startYProperty().bind(startY);
     }
 
-    public void addEvent() {
-
-        addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
-            e.consume();
-        });
-
-        addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent e) -> {
-            e.consume();
-            double mStartx = e.getX() - 40;
-            double mStarty = e.getY();
-            double mEndx = e.getX() + 40;
-            double mEndy = e.getY();
-            if (mStartx < 0) {
-                mStartx = 0;
-                mEndx = 2 * mWidth;
-            }
-            if (mEndx > pWidth) {
-                mStartx = pWidth - 2 * mWidth;
-                mEndx = pWidth;
-            }
-
-            if (mStarty < 0) {
-                mStarty = 0;
-                mEndy = 0;
-            }
-            if (mStarty > pHeight) {
-                mEndy = pHeight;
-                mStarty = pHeight;
-            }
-
-            setStartX(mStartx);
-            setEndX(mEndx);
-            setStartY(mStarty);
-            setEndY(mEndy);
-        });
+    public void bindEndProperties(DoubleProperty endX, DoubleProperty endY) {
+        endXProperty().bind(endX);
+        endYProperty().bind(endY);
     }
 }

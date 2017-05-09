@@ -1,8 +1,11 @@
 package application.Util;
 
+import application.controller.ComponentController;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Cursor;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -44,66 +47,35 @@ public class CircleCom extends Circle {
         parentPane = pane;
         addEvent();
     }
-//    public CircleCom(double radius, DrawPane pane) {
-//        super(radius);
-//        mradius = radius;
-//        pWidth = pane.getWidth();
-//        pHeight = pane.getHeight();
-//        parentPane = pane;
-//        addEvent();
-//    }
-//
-//    public CircleCom(double radius, Paint fill, DrawPane pane) {
-//        super(radius, fill);
-//        mradius = radius;
-//        pWidth = pane.getWidth();
-//        pHeight = pane.getHeight();
-//        parentPane = pane;
-//        addEvent();
-//    }
-//
-//    public CircleCom(DrawPane pane) {
-//        super();
-//        pWidth = pane.getWidth();
-//        pHeight = pane.getHeight();
-//        parentPane = pane;
-//        addEvent();
-//    }
-//
-//    public CircleCom(double centerX, double centerY, double radius, DrawPane pane) {
-//        super(centerX, centerY, radius);
-//        mradius = radius;
-//        pWidth = pane.getWidth();
-//        pHeight = pane.getHeight();
-//        parentPane = pane;
-//        addEvent();
-//    }
-//
-//    public CircleCom(double centerX, double centerY, double radius, Paint fill, DrawPane pane) {
-//        super(centerX, centerY, radius, fill);
-//        mradius = radius;
-//        pWidth = pane.getWidth();
-//        pHeight = pane.getHeight();
-//        addEvent();
-//    }
-//
-//    public CircleCom(double centerX, double centerY, double radius, Paint fill) {
-//        super(centerX, centerY, radius, fill);
-//        mradius = radius;
-//        addEvent();
-//    }
+
 
     public void addEvent() {
         final Delta dragDelta = new Delta();
         addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
-            e.consume();
+//            e.consume();
             dragDelta.x = getCenterX() - e.getX();
             dragDelta.y = getCenterY() - e.getY();
+            if (ComponentController.type == 6) {
+                if (!parentPane.isLine) {
+                    parentPane.startX = new SimpleDoubleProperty(getCenterX());
+                    parentPane.startY = new SimpleDoubleProperty(getCenterY());
+                    parentPane.isLine = true;
+                } else{
+                    parentPane.endX = new SimpleDoubleProperty(getCenterX());
+                    parentPane.endY = new SimpleDoubleProperty(getCenterY());
+//                    parentPane.drawLine();
+                    parentPane.isLine = false;
+                }
+            }
+
 //            getScene().setCursor(Cursor.HAND);
         });
 
         addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent e) -> {
-            e.consume();
+//            e.consume();
+            if (parentPane.type == 6) {
+                return;
+            }
             double newX = e.getX() + dragDelta.x;
             if (newX > 0 && newX < pWidth) {
                 setCenterX(newX);
@@ -157,6 +129,7 @@ public class CircleCom extends Circle {
 
     private void delete() {
         System.out.println("wodetian");
+        parentPane.getChildren().remove(this);
         this.setVisible(false);
     }
 
@@ -165,4 +138,13 @@ public class CircleCom extends Circle {
         public double x;
         public double y;
     }
+
+//    public boolean hasIn(double x, double y) {
+//        double len = (x - getCenterX()) * (x - getCenterX()) + (y - getCenterY()) * (y - getCenterY());
+//        if (len > getRadius() * getRadius()) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 }
