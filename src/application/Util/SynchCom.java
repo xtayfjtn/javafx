@@ -2,6 +2,7 @@ package application.Util;
 
 import application.controller.ComponentController;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 
