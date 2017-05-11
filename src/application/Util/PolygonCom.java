@@ -10,11 +10,16 @@ import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.DoublePropertyBase;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Bounds;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeType;
+import javafx.stage.Stage;
 
 /**
  * Created by ZQ on 2017/4/15.
@@ -27,15 +32,20 @@ public class PolygonCom extends Polygon {
     private double xOffset;
     private double yOffset;
 
-    //形状的中心的坐标
-    private double centerX;
-    private double centerY;
-
     //形状的宽度和高度
     private double mWidth;
     private double mHeight;
 
     private DrawPane parentPane;
+
+    //形状的中心的坐标
+    private DoubleProperty centerX = new SimpleDoubleProperty();
+    private DoubleProperty centerY = new SimpleDoubleProperty();
+
+    public Label attr;
+
+    private long currentTime = 0;
+    private long lastTime = 0;
 
 
     public PolygonCom() {
@@ -43,6 +53,8 @@ public class PolygonCom extends Polygon {
 
     public PolygonCom(DrawPane pane, double... points) {
         super(points);
+        setCenter();
+        bindCenter();
         pWidth = pane.getWidth();
         pHeight = pane.getHeight();
         parentPane = pane;
@@ -57,86 +69,137 @@ public class PolygonCom extends Polygon {
             }
         }
 
-        setCenterX(sumX * 2 / len);
-        setCenterY(sumY * 2 / len);
+//        setCenterX(sumX * 2 / len);
+//        setCenterY(sumY * 2 / len);
 
-        mWidth = Math.abs(points[0] - getCenterX());
-        mHeight = Math.abs(points[1] - getCenterY());
+        mWidth = Math.abs(points[0] - getCenterX().get());
+        mHeight = Math.abs(points[1] - getCenterY().get());
         setFill(Color.WHITE);
         setStroke(Color.BLACK);
         addEvent();
     }
 
-    public final void setCenterX(double value) {
-        centerX = value;
+    public PolygonCom(Label text, DrawPane pane, double... points) {
+        super(points);
+        setCenter();
+        bindCenter();
+        pWidth = pane.getWidth();
+        pHeight = pane.getHeight();
+        attr = text;
+        attr.layoutXProperty().bind(getCenterX());
+        attr.layoutYProperty().bind(getCenterY());
+        parentPane = pane;
+        int len = points.length;
+        double sumX = 0;
+        double sumY = 0;
+        for (int i = 0; i < len; i++) {
+            if (i % 2 == 0) {
+                sumX += points[i];
+            } else {
+                sumY += points[i];
+            }
+        }
+
+//        setCenterX(sumX * 2 / len);
+//        setCenterY(sumY * 2 / len);
+
+        mWidth = Math.abs(points[0] - getCenterX().get());
+        mHeight = Math.abs(points[1] - getCenterY().get());
+        setFill(Color.WHITE);
+        setStroke(Color.BLACK);
+        addEvent();
     }
 
-    public final void setCenterY(double value) {
-        centerY = value;
+    public void setCenter() {
+        Bounds bounds = getBoundsInParent();
+        centerX.set(bounds.getMinX() + bounds.getWidth()  / 2);
+        centerY.set(bounds.getMinY() + bounds.getHeight() / 2);
     }
 
-
+    public void bindCenter() {
+        boundsInParentProperty().addListener(new ChangeListener<Bounds>() {
+            @Override
+            public void changed(ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) {
+                setCenter();
+            }
+        });
+    }
     public void addEvent() {
         addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
 //            e.consume();
-            xOffset = e.getSceneX();
-            yOffset = e.getSceneY();
-            if (ComponentController.type == 6) {
-                if (!parentPane.isLine) {
-                    parentPane.startX = new SimpleDoubleProperty(getCenterX());
-                    parentPane.startY = new SimpleDoubleProperty(getCenterY());
-                    parentPane.isLine = true;
-                } else{
-                    parentPane.endX = new SimpleDoubleProperty(getCenterX());
-                    parentPane.endY = new SimpleDoubleProperty(getCenterY());
-//                    parentPane.drawLine();
-                    parentPane.isLine = false;
+            long diff = 0;
+            currentTime = System.currentTimeMillis();
+            boolean isDbClicked = false;
+            if (lastTime != 0 && currentTime != 0) {
+                diff = currentTime - lastTime;
+                if (diff <= 215) {
+                    isDbClicked = true;
+                } else {
+                    isDbClicked = false;
                 }
             }
+            lastTime = currentTime;
+
+            if (isDbClicked) {
+                Stage stage = AttrStage.getInstance(this);
+                stage.show();
+                System.out.println("db is true");
+            } else {
+                xOffset = e.getSceneX();
+                yOffset = e.getSceneY();
+                if (ComponentController.type == 6) {
+                    if (!parentPane.isLine) {
+                        parentPane.startX = getCenterX();
+                        parentPane.startY = getCenterY();
+                        parentPane.isLine = true;
+                    } else{
+                        parentPane.endX = getCenterX();
+                        parentPane.endY = getCenterY();
+//                    parentPane.drawLine();
+                        parentPane.isLine = false;
+                    }
+                }
+            }
+
         });
 
         addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent e) -> {
 //            e.consume();
-
             if (ComponentController.type == 6) {
                 return;
             }
-            double relativeX = getCenterX() + getLayoutX();
-            double relativeY = getCenterY() + getLayoutY();
+            double relativeX = getCenterX().get() + getLayoutX();
+            double relativeY = getCenterY().get() + getLayoutY();
             double finalX = e.getSceneX() - xOffset;
             double finalY= e.getSceneY() - yOffset;
             if (relativeX < mWidth) {
-                finalX = mWidth - getCenterX();
+                finalX = mWidth - getCenterX().get();
             }
             if (relativeX > pWidth - mWidth) {
-                finalX = pWidth - mWidth - getCenterX();
+                finalX = pWidth - mWidth - getCenterX().get();
             }
 
             if (relativeY < mHeight) {
-                finalY = mHeight - getCenterY();
+                finalY = mHeight - getCenterY().get();
             }
 
             if (relativeY > pHeight - mHeight) {
-                finalY = pHeight - mHeight - getCenterY();
+                finalY = pHeight - mHeight - getCenterY().get();
             }
             setLayoutX(finalX);
             setLayoutY(finalY);
-            setCenterX(e.getX());
-            setCenterY(e.getY());
 
         });
 
         addEventHandler(MouseEvent.MOUSE_RELEASED, (MouseEvent e) -> {
-            setCenterX(e.getX());
-            setCenterY(e.getY());
         });
     }
 
-    public final double getCenterX() {
+    public final DoubleProperty getCenterX() {
         return centerX;
     }
 
-    public final double getCenterY() {
+    public final DoubleProperty getCenterY() {
         return centerY;
     }
 

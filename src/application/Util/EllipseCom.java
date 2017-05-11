@@ -2,8 +2,10 @@ package application.Util;
 
 import application.controller.ComponentController;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Ellipse;
+import javafx.stage.Stage;
 
 /**
  * Created by ZQ on 2017/4/14.
@@ -14,6 +16,13 @@ public class EllipseCom extends Ellipse {
     private double pWidth;
     private double pHeight;
     private DrawPane parentPane;
+
+    //双击事件所有变量。
+    private long currentTime = 0;
+    private long lastTime = 0;
+
+
+    public Label attr;
     public EllipseCom() {
         super();
     }
@@ -37,25 +46,58 @@ public class EllipseCom extends Ellipse {
         parentPane = pane;
         addEvent();
     }
+    public EllipseCom(double centerX, double centerY, double radiusX, double radiusY, DrawPane pane, Label text) {
+        super(centerX, centerY, radiusX, radiusY);
+        attr = text;
+        text.layoutXProperty().bind(centerXProperty().add(-20));
+        text.layoutYProperty().bind(centerYProperty());
+        pWidth = pane.getWidth();
+        pHeight = pane.getHeight();
+        mradiusX = radiusX;
+        mradiusY = radiusY;
+        parentPane = pane;
+        addEvent();
+    }
 
     private void addEvent() {
         final Delta dragDelta = new Delta();
         addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
 //            e.consume();
-            dragDelta.x = getCenterX() - e.getX();
-            dragDelta.y = getCenterY() - e.getY();
-            if (ComponentController.type == 6) {
-                if (!parentPane.isLine) {
-                    parentPane.startX = new SimpleDoubleProperty(getCenterX());
-                    parentPane.startY = new SimpleDoubleProperty(getCenterY());
-                    parentPane.isLine = true;
-                } else{
-                    parentPane.endX = new SimpleDoubleProperty(getCenterX());
-                    parentPane.endY = new SimpleDoubleProperty(getCenterY());
-//                    parentPane.drawLine();
-                    parentPane.isLine = false;
+            long diff = 0;
+            currentTime = System.currentTimeMillis();
+            boolean isDbClicked = false;
+            if (lastTime != 0 && currentTime != 0) {
+                diff = currentTime - lastTime;
+                if (diff <= 215) {
+                    isDbClicked = true;
+                } else {
+                    isDbClicked = false;
                 }
             }
+            lastTime = currentTime;
+            //同理以上双击不完善。
+
+            if (isDbClicked) {
+                Stage stage = AttrStage.getInstance(this);
+                stage.show();
+                System.out.println("db is true");
+            } else {
+                dragDelta.x = getCenterX() - e.getX();
+                dragDelta.y = getCenterY() - e.getY();
+                if (ComponentController.type == 6) {
+                    if (!parentPane.isLine) {
+                        parentPane.startX = new SimpleDoubleProperty(getCenterX());
+                        parentPane.startY = new SimpleDoubleProperty(getCenterY());
+                        parentPane.isLine = true;
+                    } else{
+                        parentPane.endX = new SimpleDoubleProperty(getCenterX());
+                        parentPane.endY = new SimpleDoubleProperty(getCenterY());
+//                    parentPane.drawLine();
+                        parentPane.isLine = false;
+                    }
+                }
+            }
+
         });
 
         addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent e) -> {

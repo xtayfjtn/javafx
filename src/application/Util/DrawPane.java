@@ -4,12 +4,17 @@ import application.controller.ComponentController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
+
 
 /**
  * Created by ZQ on 2017/4/14.
@@ -102,11 +107,6 @@ public class DrawPane extends Pane {
         startX = new SimpleDoubleProperty(x);
         startY = new SimpleDoubleProperty(y);
         line = new LineCom(startX, startY, startX, startY);
-//        line = new Line();
-//        line.setStartX(startX.get());
-//        line.setStartY(startY.get());
-//        line.setEndX(startX.get());
-//        line.setEndY(startY.get());
         getChildren().add(line);
     }
 
@@ -115,6 +115,7 @@ public class DrawPane extends Pane {
         if (isInComponent(eventX, eventY)) {
             return;
         }
+        Label text = new Label("guard?");
         double leftX = eventX - 40;
         double leftY = eventY;
         double topX = eventX;
@@ -123,19 +124,23 @@ public class DrawPane extends Pane {
         double rightY = eventY;
         double bottomX = eventX;
         double bottomY = eventY + 20;
-        PolygonCom pc = new PolygonCom(this, leftX, leftY, topX, topY, rightX, rightY, bottomX, bottomY, leftX, leftY);
+        PolygonCom pc = new PolygonCom(text, this, leftX, leftY, topX, topY, rightX, rightY, bottomX, bottomY, leftX, leftY);
         getChildren().add(pc);
+        getChildren().add(text);
     }
 
-    //画出顺序；
+    //画出顺序控件；
     private void drawEllipse(double x, double y, double radiusX, double radiusY) {
         if (isInComponent(x, y)) {
             return;
         }
-        EllipseCom a = new EllipseCom(x, y, radiusX, radiusY, this);
+        Label text = new Label("Activity");
+        EllipseCom a = new EllipseCom(x, y, radiusX, radiusY, this, text);
         a.setFill(Color.BISQUE);
         a.setStroke(Color.BLACK);
         getChildren().add(a);
+        getChildren().add(text);
+
     }
 
     //画出开始控件；
@@ -143,8 +148,9 @@ public class DrawPane extends Pane {
         if (isInComponent(x.get(), y.get())) {
             return;
         }
-        CircleCom start = new CircleCom(Color.PALEGREEN, x, y, radius, this);
-//        CircleCom end = new CircleCom(Color.TOMATO, endX, endY);
+        Label text = new Label("开始");//控件下方标签
+        CircleCom start = new CircleCom(Color.PALEGREEN, x, y, radius, this, text);
+        getChildren().add(text);
         getChildren().add(start);
     }
 
