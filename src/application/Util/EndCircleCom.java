@@ -1,5 +1,6 @@
 package application.Util;
 
+import application.controller.ComponentController;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.*;
@@ -12,39 +13,14 @@ public class EndCircleCom extends CircleCom {
     public EndCircleCom(Color color, DoubleProperty x, DoubleProperty y, double radius, DrawPane pane) {
         super(color, x, y, radius, pane);
     }
-//    private RadialGradient gradient = null;
-//    private double pWidth;
-//    private double pHeight;
-//    private double mradius;
-
-//    public EndCircleCom(double radius, DrawPane pane) {
-//        super(radius, pane);
-//    }
-//
-//    public EndCircleCom(double radius, Paint fill, DrawPane pane) {
-//        super(radius, fill, pane);
-//    }
-//
-//    public EndCircleCom(DrawPane pane) {
-//        super(pane);
-//    }
-//
-//    public EndCircleCom(double centerX, double centerY, double radius, DrawPane pane) {
-//        super(centerX, centerY, radius, pane);
-//    }
-//
-//    public EndCircleCom(double centerX, double centerY, double radius, Paint fill, DrawPane pane) {
-//        super(centerX, centerY, radius, fill, pane);
-//    }
-//
-//    public EndCircleCom(double centerX, double centerY, double radius, Paint fill) {
-//        super(centerX, centerY, radius, fill);
-//    }
 
     @Override
     public void addEvent() {
         super.addEvent();
         addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent e) -> {
+            if (ComponentController.type == 6) {
+                return;
+            }
             double mx = e.getX();
             double my = e.getY();
 

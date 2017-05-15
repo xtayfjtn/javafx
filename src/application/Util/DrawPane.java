@@ -167,8 +167,12 @@ public class DrawPane extends Pane {
     //画结束节点。
     private void drawEnd(DoubleProperty x, DoubleProperty y, double radius) {
         //以下是正式代码，以上是调试代码
+        if (isInComponent(x.get(), y.get())) {
+            return;
+        }
+        System.out.println(x.get() + " " + y.get());
         EndCircleCom ecc = new EndCircleCom(Color.BLACK, x, y, radius, this);
-        RadialGradient gradient = new RadialGradient(0, .5, x.get(), y.get(), 20, false, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(.8, Color.BLACK), new Stop(.8, Color.WHITE), new Stop(1, Color.WHITE));
+        RadialGradient gradient = new RadialGradient(0, 1, x.get(), y.get(), 20, false, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(.8, Color.BLACK), new Stop(.8, Color.WHITE), new Stop(1, Color.WHITE));
         ecc.setFill(gradient);
         ecc.setStroke(Color.BLACK);
         getChildren().add(ecc);
