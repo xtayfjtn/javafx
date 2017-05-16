@@ -96,8 +96,8 @@ public class CircleCom extends Circle {
 
             //以上的双击事件不够完善，双击总是运行单击事件。暂时先以这个为准。
             if (isDbClicked) {
+                //双击打开窗口编辑;
                 Stage stage = AttrStage.getInstance(this);
-//                Stage stage = new Stage();
                 stage.show();
                 System.out.println("db is true");
             } else {

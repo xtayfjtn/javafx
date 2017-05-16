@@ -20,8 +20,4 @@ public class ComponentattrController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
-    public void onConfirmClicked(ActionEvent actionEvent) {
-        attrtxt1.setText("wodetian");
-    }
 }

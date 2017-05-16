@@ -64,11 +64,25 @@ public class AttrStage extends Stage {
             e.printStackTrace();
         }
         componentattrController = fxmlLoader.getController();
-//        try {
-//            target = FXMLLoader.load(getClass().getResource("../fxml/componentattr.fxml"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        componentattrController.confirmbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (circlecom != null) {
+                    circlecom.attr.setText(componentattrController.attrtxt1.getText());
+                } else if (ellipsecom != null) {
+                    ellipsecom.attr.setText(componentattrController.attrtxt1.getText());
+                } else if (polygoncom != null) {
+                    polygoncom.attr.setText(componentattrController.attrtxt1.getText());
+                }
+                close();
+            }
+        });
+        componentattrController.cancelbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                close();
+            }
+        });
         Scene scene = new Scene(target); //创建场景；
 
         setScene(scene); //将场景载入舞台；

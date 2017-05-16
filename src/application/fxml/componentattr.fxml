@@ -18,7 +18,7 @@
    <children>
       <Label prefHeight="15.0" prefWidth="343.0" text="属性：" />
       <TextField fx:id="attrtxt1" GridPane.columnIndex="1" />
-      <Button fx:id="confirmbtn" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#onConfirmClicked" text="确定" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" text="取消" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button fx:id="confirmbtn" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="确定" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+      <Button fx:id="cancelbtn" mnemonicParsing="false" text="取消" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    </children>
 </GridPane>
