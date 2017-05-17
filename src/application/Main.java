@@ -44,7 +44,7 @@ public class Main extends Application {
         Iterator<Project> iterator = projects.iterator();
         while (iterator.hasNext()) {
             Project p = iterator.next();
-            System.out.println("id:" + p.getProjectid() + "project:" + p.getProjectName());
+            System.out.println("id:" + p.getProjectID() + "project:" + p.getProjectName());
         }
         session.commit();
         session.close();

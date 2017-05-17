@@ -12,7 +12,7 @@ public interface ProjectDao {
 
     public int update(Project project);
 
-    public int delete(String projectName);
+    public int delete(int projectID);
 
     public List<Project> selectAll();
 

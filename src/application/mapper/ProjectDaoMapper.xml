@@ -17,8 +17,8 @@
         update user set projectname=#{projectName}, where projectname=#{projectName}
     </update>
 
-    <delete id="delete" parameterType="String">
-        delete from user where projectName=#{projectName}
+    <delete id="delete" parameterType="int">
+        delete from user where projectID=#{projectID}
     </delete>
 
     <select id="findByProjectName" parameterType="String" resultType="application.model.Project">
