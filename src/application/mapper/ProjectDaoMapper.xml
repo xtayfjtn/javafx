@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="application.dao.ProjectDao">
+    <select id="countAll" resultType="int">
+        select count(*) c from project;
+    </select>
+
+    <select id="selectAll" resultType="application.model.Project">
+        select * from project order by projectname asc
+    </select>
+
+    <insert id="insert" parameterType="application.model.Project">
+        insert into project(projectName) values(#{projectName})
+    </insert>
+
+    <update id="update" parameterType="application.model.Project">
+        update user set projectname=#{projectName}, where projectname=#{projectName}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from user where projectName=#{projectName}
+    </delete>
+
+    <select id="findByProjectName" parameterType="String" resultType="application.model.Project">
+        select * from project where projectName=#{projectName}
+    </select>
+</mapper>

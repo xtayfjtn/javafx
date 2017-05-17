@@ -1,14 +1,19 @@
 package application;
 
 import application.Util.SystemUtil;
+import application.dao.ProjectDao;
+import application.model.Project;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.apache.ibatis.session.SqlSession;
 
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -26,6 +31,23 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        SqlSession session = SystemUtil.openAndGetSession();
+        ProjectDao projectDao = session.getMapper(ProjectDao.class);
+
+        Project project = new Project();
+        project.setProjectName("我的天");
+
+//        projectDao.insert(project);
+        System.out.println(projectDao.countAll());
+
+        List<Project> projects = projectDao.selectAll();
+        Iterator<Project> iterator = projects.iterator();
+        while (iterator.hasNext()) {
+            Project p = iterator.next();
+            System.out.println("id:" + p.getProjectid() + "project:" + p.getProjectName());
+        }
+        session.commit();
+        session.close();
         resourceBundle = ResourceBundle.getBundle("application.Lan", new Locale(SystemUtil.getLanguage()));
         //加载布局
         primaryStage.setTitle(resourceBundle.getString("application.title"));

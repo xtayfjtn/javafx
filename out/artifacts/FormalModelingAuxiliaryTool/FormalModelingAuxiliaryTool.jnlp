@@ -11,7 +11,12 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FormalModelingAuxiliaryTool.jar" size="72287" download="eager" />
+    <jar href="FormalModelingAuxiliaryTool.jar" size="76039" download="eager" />
+    <jar href="lib/hamcrest-core-1.3.jar" size="45024" download="eager" />
+    <jar href="lib/ibatis-sqlmap-3.0-beta-4.jar" size="100851" download="eager" />
+    <jar href="lib/junit-4.12.jar" size="314932" download="eager" />
+    <jar href="lib/mybatis-3.3.0.jar" size="1417472" download="eager" />
+    <jar href="lib/mysql-connector-java-5.1.38-bin.jar" size="983914" download="eager" />
   </resources>
   <applet-desc  width="600" height="400" main-class="com.javafx.main.NoJavaFXFallback"  name="FormalModelingAuxiliaryTool" >
     <param name="requiredFXVersion" value="2.2+"/>
