@@ -7,12 +7,17 @@ import javafx.scene.shape.Shape;
 /**
  * Created by ZQ on 2017/4/25.
  */
-public class ArrowCom extends Line {
+public class ArrowCom extends Line implements BaseCom {
     ArrowCom(DoubleProperty startX, DoubleProperty startY, DoubleProperty endX, DoubleProperty endY) {
         startXProperty().bind(startX);
         startYProperty().bind(startY);
         endXProperty().bind(endX);
         endYProperty().bind(endY);
         setMouseTransparent(true);
+    }
+
+    @Override
+    public void delete() {
+
     }
 }

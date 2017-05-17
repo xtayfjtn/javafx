@@ -31,7 +31,7 @@ import java.net.URL;
 /**
  * Created by ZQ on 2017/4/15.
  */
-public class CircleCom extends Circle {
+public class CircleCom extends Circle implements BaseCom{
 
     protected Label attr;
     protected double mradius;
@@ -81,6 +81,11 @@ public class CircleCom extends Circle {
     public void addEvent() {
         final Delta dragDelta = new Delta();
         addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
+            if (e.isSecondaryButtonDown()) {
+                ContextMenu contextMenu = new CompContextMenu(this);
+                contextMenu.show(parentPane, e.getScreenX(), e.getScreenY());
+                return;
+            }
             long diff = 0;
             currentTime = System.currentTimeMillis();
             boolean isDbClicked = false;
@@ -153,9 +158,10 @@ public class CircleCom extends Circle {
         });
     }
 
-    private void delete() {
+    public void delete() {
         System.out.println("wodetian");
         parentPane.getChildren().remove(this);
+        parentPane.getChildren().remove(attr);
         this.setVisible(false);
     }
 

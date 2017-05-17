@@ -72,7 +72,7 @@ public class DrawPane extends Pane {
                     break;
                 case 5:
                     if (eventX > circleR + 10 && eventX < width - circleR - 10 && eventY > circleR && eventY < height - circleR - 10) {
-                        drawEnd(circleX, circleY, circleR + 10);
+                        drawEnd(circleX, circleY, circleR + 5);
                     }
                     break;
                 case 6:
@@ -106,7 +106,7 @@ public class DrawPane extends Pane {
     public void drawLineStart(double x, double y) {
         startX = new SimpleDoubleProperty(x);
         startY = new SimpleDoubleProperty(y);
-        line = new LineCom(startX, startY, startX, startY);
+        line = new LineCom(startX, startY, startX, startY, this);
         getChildren().add(line);
     }
 
@@ -170,11 +170,12 @@ public class DrawPane extends Pane {
         if (isInComponent(x.get(), y.get())) {
             return;
         }
-        System.out.println(x.get() + " " + y.get());
-        EndCircleCom ecc = new EndCircleCom(Color.BLACK, x, y, radius, this);
-        RadialGradient gradient = new RadialGradient(0, 1, x.get(), y.get(), 20, false, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(.8, Color.BLACK), new Stop(.8, Color.WHITE), new Stop(1, Color.WHITE));
-        ecc.setFill(gradient);
+        EndCircleCom ecc = new EndCircleCom(Color.WHITE, x, y, radius, this);
+//        RadialGradient gradient = new RadialGradient(0, 1, x.get(), y.get(), 20, false, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(.8, Color.BLACK), new Stop(.8, Color.WHITE), new Stop(1, Color.WHITE));
+//        ecc.setFill(gradient);
         ecc.setStroke(Color.BLACK);
+        ecc.setStrokeWidth(10);
+//        ecc.setFill(Co);
         getChildren().add(ecc);
     }
 

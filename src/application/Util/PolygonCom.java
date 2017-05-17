@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -24,7 +25,7 @@ import javafx.stage.Stage;
 /**
  * Created by ZQ on 2017/4/15.
  */
-public class PolygonCom extends Polygon {
+public class PolygonCom extends Polygon implements BaseCom {
     //pane的宽度和高度
     private double pWidth;
     private double pHeight;
@@ -127,6 +128,11 @@ public class PolygonCom extends Polygon {
     public void addEvent() {
         addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
 //            e.consume();
+            if (e.isSecondaryButtonDown()) {
+                ContextMenu contextMenu = new CompContextMenu(this);
+                contextMenu.show(parentPane, e.getScreenX(), e.getScreenY());
+                return;
+            }
             long diff = 0;
             currentTime = System.currentTimeMillis();
             boolean isDbClicked = false;
@@ -204,4 +210,9 @@ public class PolygonCom extends Polygon {
     }
 
 
+    @Override
+    public void delete() {
+        parentPane.getChildren().remove(this);
+        parentPane.getChildren().remove(attr);
+    }
 }

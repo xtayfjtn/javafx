@@ -3,6 +3,7 @@ package application.Util;
 import application.controller.ComponentController;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 
@@ -11,7 +12,7 @@ import javafx.scene.shape.Line;
  * 线控件
  * Created by ZQ on 2017/4/19.
  */
-public class SynchCom extends Line {
+public class SynchCom extends Line implements BaseCom{
 
     //主布局宽度
     private double pWidth;
@@ -41,6 +42,12 @@ public class SynchCom extends Line {
 
         addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
 //            e.consume();
+            if (e.isSecondaryButtonDown()) {
+                System.out.println("what");
+                ContextMenu contextMenu = new CompContextMenu(this);
+                contextMenu.show(parentPane, e.getScreenX(), e.getScreenY());
+                return;
+            }
             if (ComponentController.type == 6) {
                 if (!parentPane.isLine) {
                     parentPane.startX = new SimpleDoubleProperty(getCenterX());
@@ -95,5 +102,10 @@ public class SynchCom extends Line {
 
     public double getCenterY() {
         return centerY;
+    }
+
+    @Override
+    public void delete() {
+        parentPane.getChildren().remove(this);
     }
 }
