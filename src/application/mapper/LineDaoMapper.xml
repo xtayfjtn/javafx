@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="application.dao.LineDao">
+    <select id="countAll" resultType="int">
+        select count(*) l from line;
+    </select>
+
+    <select id="selectAll" resultType="application.model.Line">
+        select * from line
+    </select>
+
+    <insert id="insert" parameterType="application.model.Line">
+        insert into line(start_id, end_id) values(#{start_id}, #{end_id})
+    </insert>
+
+    <update id="update" parameterType="application.model.Line">
+        update line set start_id=#{start_id}, end_id=#{end_id} where line_id=#{line_id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from line where line_id=#{line_id}
+    </delete>
+
+    <select id="find" parameterType="int" resultType="application.model.Line">
+        select * from line where line_id=#{line_id}
+    </select>
+</mapper>

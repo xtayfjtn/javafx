@@ -6,83 +6,83 @@ import javax.xml.bind.annotation.XmlElement;
  * Created by ZQ on 2017/5/17.
  */
 public class Clause {
-    private int clauseID;
-    private int projectID;
-    private String name;
-    private String desc;
-    private String type;
-    private String order;
-    private String level;
+    private int clause_id;
+    private int project_id;
+    private String clauseName = "clauseName";
+    private String description ="模块描述";
+    private String cType = "模块/功能";
+    private String cOrder = "1";
+    private String cLevel = "2";
     private int fatherClauseID;
 
     @XmlElement
-    public int getClauseID() {
-        return clauseID;
+    public int getClause_id() {
+        return clause_id;
     }
 
     @XmlElement
-    public void setClauseID(int clauseID) {
-        this.clauseID = clauseID;
+    public void setClause_id(int clause_id) {
+        this.clause_id = clause_id;
     }
 
     @XmlElement
-    public int getProjectID() {
-        return projectID;
+    public int getProject_id() {
+        return project_id;
     }
 
     @XmlElement
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
+    public void setProject_id(int project_id) {
+        this.project_id = project_id;
     }
 
     @XmlElement
-    public String getName() {
-        return name;
+    public String getClauseName() {
+        return clauseName;
     }
 
     @XmlElement
-    public void setName(String name) {
-        this.name = name;
+    public void setClauseName(String clauseName) {
+        this.clauseName = clauseName;
     }
 
     @XmlElement
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
     @XmlElement
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @XmlElement
-    public String getType() {
-        return type;
+    public String getcType() {
+        return cType;
     }
 
     @XmlElement
-    public void setType(String type) {
-        this.type = type;
+    public void setcType(String cType) {
+        this.cType = cType;
     }
 
     @XmlElement
-    public String getOrder() {
-        return order;
+    public String getcOrder() {
+        return cOrder;
     }
 
     @XmlElement
-    public void setOrder(String order) {
-        this.order = order;
+    public void setcOrder(String cOrder) {
+        this.cOrder = cOrder;
     }
 
     @XmlElement
-    public String getLevel() {
-        return level;
+    public String getcLevel() {
+        return cLevel;
     }
 
     @XmlElement
-    public void setLevel(String level) {
-        this.level = level;
+    public void setcLevel(String cLevel) {
+        this.cLevel = cLevel;
     }
 
     @XmlElement
@@ -93,5 +93,19 @@ public class Clause {
     @XmlElement
     public void setFatherClauseID(int fatherClauseID) {
         this.fatherClauseID = fatherClauseID;
+    }
+
+    @Override
+    public String toString() {
+        return "Clause{" +
+                "clause_id=" + clause_id +
+                ", project_id=" + project_id +
+                ", clauseName='" + clauseName + '\'' +
+                ", description='" + description + '\'' +
+                ", cType='" + cType + '\'' +
+                ", cOrder='" + cOrder + '\'' +
+                ", cLevel='" + cLevel + '\'' +
+                ", fatherClauseID=" + fatherClauseID +
+                '}';
     }
 }

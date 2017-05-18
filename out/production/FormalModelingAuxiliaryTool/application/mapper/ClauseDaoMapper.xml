@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="application.dao.ClauseDao">
+    <select id="countAll" resultType="int">
+        select count(*) c from clause;
+    </select>
+
+    <select id="selectAll" resultType="application.model.Clause">
+        select * from clause order by clausename asc
+    </select>
+
+    <insert id="insert" parameterType="application.model.Clause">
+        insert into clause(project_id, clausename, description, cType, cOrder, cLevel, fatherclause_id) values(#{project_id}, #{clauseName}, #{description}, #{cType}, #{cOrder}, #{cLevel}, #{fatherClauseID})
+    </insert>
+
+    <update id="update" parameterType="application.model.Clause">
+        update clause set project_id=#{projectName}, clauseName=#{clauseName}, description=#{description}, cType=#{cType}, cOrder=#{cOrder}, cLevel=#{cLevel}, fatherclause_id={fatherClauseID} where clause_id=#{clause_id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from clause where clause_id=#{clause_id}
+    </delete>
+
+    <select id="findByClauseName" parameterType="String" resultType="application.model.Clause">
+        select * from clause where clauseName=#{clauseName}
+    </select>
+</mapper>

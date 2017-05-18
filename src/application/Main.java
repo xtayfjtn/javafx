@@ -1,8 +1,8 @@
 package application;
 
 import application.Util.SystemUtil;
-import application.dao.ProjectDao;
-import application.model.Project;
+import application.dao.*;
+import application.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.apache.ibatis.session.SqlSession;
+import sun.security.provider.SHA;
 
 import java.net.URL;
 import java.util.Iterator;
@@ -32,20 +33,56 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         SqlSession session = SystemUtil.openAndGetSession();
+//        一下测试Clause数据库连接
+//        ClauseDao clauseDao = session.getMapper(ClauseDao.class);
+//        List<Clause> clauses = clauseDao.selectAll();
+//        Iterator<Clause> iterator = clauses.iterator();
+//        while (iterator.hasNext()) {
+//            Clause c = iterator.next();
+//            System.out.println(c.toString());
+//        }
+//        以下测试Line;
+//        LineDao lineDao = session.getMapper(LineDao.class);
+//        List<Line> lines = lineDao.selectAll();
+//        Iterator<Line> iter = lines.iterator();
+//        while (iter.hasNext()) {
+//            Line l = iter.next();
+//            System.out.println(l.toString());
+//        }
+//        以下测试Parameter数据库连接
+//        ParameterDao parameterDao = session.getMapper(ParameterDao.class);
+//        Parameter parameter = new Parameter();
+//        parameterDao.insert(parameter);
+//        List<Parameter> parameters = parameterDao.selectAll();
+//        Iterator<Parameter> it = parameters.iterator();
+//        while (it.hasNext()) {
+//            Parameter p = it.next();
+//            System.out.println(p.toString());
+//        }
+//        以下测试Project数据库连接.
         ProjectDao projectDao = session.getMapper(ProjectDao.class);
 
         Project project = new Project();
         project.setProjectName("我的天");
 
-//        projectDao.insert(project);
-        System.out.println(projectDao.countAll());
+        projectDao.insert(project);
 
         List<Project> projects = projectDao.selectAll();
         Iterator<Project> iterator = projects.iterator();
         while (iterator.hasNext()) {
             Project p = iterator.next();
-            System.out.println("id:" + p.getProjectID() + "project:" + p.getProjectName());
+            System.out.println(p.toString());
         }
+//        以下测试Shape连接数据库;
+//        ShapeDao shapeDao = session.getMapper(ShapeDao.class);
+//        Shape shape = new Shape();
+//        shapeDao.insert(shape);
+//        List<Shape> shapes = shapeDao.selectAll();
+//        Iterator<Shape> iterator = shapes.iterator();
+//        while (iterator.hasNext()) {
+//            Shape s = iterator.next();
+//            System.out.println(s.toString());
+//        }
         session.commit();
         session.close();
         resourceBundle = ResourceBundle.getBundle("application.Lan", new Locale(SystemUtil.getLanguage()));

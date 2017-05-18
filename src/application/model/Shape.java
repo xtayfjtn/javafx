@@ -6,30 +6,31 @@ import javax.xml.bind.annotation.XmlElement;
  * Created by ZQ on 2017/5/17.
  */
 public class Shape {
-    private int shapeID;
-    private int type;
-    private double layoutX;
-    private double layoutY;
-    private int clauseID;
+    private int shape_id;
+    private int sType = 0;
+    private double layoutX = 0.0;
+    private double layoutY = 0.0;
+    private int clause_id;
+    private String attr = "开始";
 
     @XmlElement
-    public int getShapeID() {
-        return shapeID;
+    public int getShape_id() {
+        return shape_id;
     }
 
     @XmlElement
-    public void setShapeID(int shapeID) {
-        this.shapeID = shapeID;
+    public void setShape_id(int shape_id) {
+        this.shape_id = shape_id;
     }
 
     @XmlElement
-    public int getType() {
-        return type;
+    public int getsType() {
+        return sType;
     }
 
     @XmlElement
-    public void setType(int type) {
-        this.type = type;
+    public void setsType(int sType) {
+        this.sType = sType;
     }
 
     @XmlElement
@@ -53,12 +54,34 @@ public class Shape {
     }
 
     @XmlElement
-    public int getClauseID() {
-        return clauseID;
+    public int getClause_id() {
+        return clause_id;
     }
 
     @XmlElement
-    public void setClauseID(int clauseID) {
-        this.clauseID = clauseID;
+    public void setClause_id(int clause_id) {
+        this.clause_id = clause_id;
+    }
+
+    @XmlElement
+    public String getAttr() {
+        return attr;
+    }
+
+    @XmlElement
+    public void setAttr(String attr) {
+        this.attr = attr;
+    }
+
+    @Override
+    public String toString() {
+        return "Shape{" +
+                "shape_id=" + shape_id +
+                ", sType=" + sType +
+                ", layoutX=" + layoutX +
+                ", layoutY=" + layoutY +
+                ", clause_id=" + clause_id +
+                ", attr='" + attr + '\'' +
+                '}';
     }
 }

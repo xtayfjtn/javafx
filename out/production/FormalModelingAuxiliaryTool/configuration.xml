@@ -14,5 +14,9 @@
     </environments>
     <mappers>
         <mapper resource="application/mapper/ProjectDaoMapper.xml"/>
+        <mapper resource="application/mapper/ClauseDaoMapper.xml"/>
+        <mapper resource="application/mapper/LineDaoMapper.xml"/>
+        <mapper resource="application/mapper/ParameterDaoMapper.xml"/>
+        <mapper resource="application/mapper/ShapeDaoMapper.xml"/>
     </mappers>
 </configuration>

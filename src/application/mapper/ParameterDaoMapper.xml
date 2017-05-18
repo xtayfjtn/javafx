@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="application.dao.ParameterDao">
+    <select id="countAll" resultType="int">
+        select count(*) p from parameter;
+    </select>
+
+    <select id="selectAll" resultType="application.model.Parameter">
+        select * from parameter order by parametername asc
+    </select>
+
+    <insert id="insert" parameterType="application.model.Parameter">
+        insert into parameter(category, pType, parametername, description, pOrder, clause_id) values(#{category}, #{pType}, #{parameterName}, #{description}, #{pOrder}, #{clause_id})
+    </insert>
+
+    <update id="update" parameterType="application.model.Parameter">
+        update parameter set category=#{category}, pType=#{pType}, paremetername=#{parameterName}, description=#{description}, pOrder={pOrder}, clause_id=#{clause_id} where parameter_id=#{paremeter_id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from parameter where parameter_id=#{paremeter_id}
+    </delete>
+
+    <select id="find" parameterType="int" resultType="application.model.Parameter">
+        select * from paremeter where parameter_id=#{parameter_id}
+    </select>
+</mapper>

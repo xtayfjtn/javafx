@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="application.dao.ShapeDao">
+    <select id="countAll" resultType="int">
+        select count(*) s from shape;
+    </select>
+
+    <select id="selectAll" resultType="application.model.Shape">
+        select * from shape
+    </select>
+
+    <insert id="insert" parameterType="application.model.Shape">
+        insert into shape(sType, layoutX, layoutY, clause_id, attr) values(#{sType}, #{layoutX}, #{layoutY}, #{clause_id}, #{attr})
+    </insert>
+
+    <update id="update" parameterType="application.model.Shape">
+        update shape set sType=#{sType}, layoutX=#{layoutX}, layoutY=#{layoutY}, clause_id={clause_id}, attr=#{attr} where shape_id=#{shape_id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from shape where shape_id=#{shape_id}
+    </delete>
+
+    <select id="find" parameterType="int" resultType="application.model.Shape">
+        select * from shape where shape_id=#{shape_id}
+    </select>
+</mapper>

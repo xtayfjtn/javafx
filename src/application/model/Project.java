@@ -6,19 +6,19 @@ import javax.xml.bind.annotation.XmlElement;
  * Created by ZQ on 2017/5/17.
  */
 public class Project {
-    private int projectID;
-    private String projectName;
-    private String desc;
-    private String type;
+    private int project_id;
+    private String projectName = "新项目";
+    private String description = "这是一个新项目";
+    private String pType = "type1";
 
     @XmlElement
-    public int getProjectID() {
-        return projectID;
+    public int getProject_id() {
+        return project_id;
     }
 
     @XmlElement
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
+    public void setProject_id(int project_id) {
+        this.project_id = project_id;
     }
 
     @XmlElement
@@ -32,22 +32,32 @@ public class Project {
     }
 
     @XmlElement
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
     @XmlElement
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @XmlElement
-    public String getType() {
-        return type;
+    public String getpType() {
+        return pType;
     }
 
     @XmlElement
-    public void setType(String type) {
-        this.type = type;
+    public void setpType(String pType) {
+        this.pType = pType;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "project_id=" + project_id +
+                ", projectName='" + projectName + '\'' +
+                ", description='" + description + '\'' +
+                ", pType='" + pType + '\'' +
+                '}';
     }
 }
