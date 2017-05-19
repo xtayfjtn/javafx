@@ -13,11 +13,11 @@ public interface ParameterDao {
 
     public int update(Parameter parameter);
 
-    public int delete(int parameterID);
+    public int delete(int parameter_id);
 
     public List<Parameter> selectAll();
 
     public int countAll();
 
-    public Parameter find(int parameterID);
+    public Parameter find(int parameter_id);
 }

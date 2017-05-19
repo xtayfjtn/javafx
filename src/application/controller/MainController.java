@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.Util.TextFieldTreeCellImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -47,26 +48,26 @@ public class MainController implements Initializable {
         projectController.newProject(name);
     }
 
-    public void editModel(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+    public void editModel(TextFieldTreeCellImpl textFieldTreeCell) {
         System.out.println(textFieldTreeCell.getText());
     }
 
     //查看模块的信息
-    public void seeInfo(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+    public void seeInfo(TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.infoShown(textFieldTreeCell);
     }
     //新建模块
-    public void addModel(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+    public void addModel(TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.initModel(textFieldTreeCell);
     }
 
     //查看功能点信息
-    public void funcedit(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+    public void funcedit(TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.funcShown(textFieldTreeCell);
     }
 
 
-    public void addFunc(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+    public void addFunc(TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.initFunc(textFieldTreeCell);
     }
 

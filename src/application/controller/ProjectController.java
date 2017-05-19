@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.Util.TextFieldTreeCellImpl;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -46,109 +47,8 @@ public class ProjectController implements Initializable {
         }
         projectTree.setRoot(mRoot);
         projectTree.setEditable(true);
-        projectTree.setCellFactory((TreeView<String> p) -> new TextFieldTreeCellImpl());
+        projectTree.setCellFactory((TreeView<String> p) -> new TextFieldTreeCellImpl(mainController));
     }
 
 
-
-    public class TextFieldTreeCellImpl extends TreeCell<String > {
-
-        public String modelInfo = "";
-        public String funcInfo = "";
-        public String funcInput = "";
-        public String funcOutput = "";
-        private TextField textField;
-        private final ContextMenu projectMenu = new ContextMenu();//工程节点菜单
-        private final ContextMenu modelMenu = new ContextMenu();//模块节点菜单
-        private final ContextMenu functionMenu = new ContextMenu();//功能点节点菜单
-
-        public TextFieldTreeCellImpl() {
-
-            MenuItem addMenuItem = new MenuItem("添加模块");
-            addMenuItem.setOnAction((ActionEvent t) -> {
-                mainController.addModel(this);
-//                TreeItem newEmployee = new TreeItem<>("新模块");
-//                getTreeItem().getChildren().add(newEmployee);
-            });
-            projectMenu.getItems().add(addMenuItem);
-
-            MenuItem modelInfoItem = new MenuItem("查看详情");
-            modelInfoItem.setOnAction(event -> {
-                mainController.seeInfo(this);
-            });
-            MenuItem addFuncItem = new MenuItem("添加功能点");
-            addFuncItem.setOnAction((ActionEvent t) -> {
-                mainController.addFunc(this);
-            });
-            modelMenu.getItems().add(addFuncItem);
-            modelMenu.getItems().add(modelInfoItem);
-
-            MenuItem funcInfoItem = new MenuItem("查看详情");
-            funcInfoItem.setOnAction(event -> {
-                mainController.funcedit(this);
-            });
-            functionMenu.getItems().add(funcInfoItem);
-
-        }
-
-        @Override
-        public void startEdit() {
-            super.startEdit();
-            if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
-//                mainController.funcedit(this);
-            } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
-                mainController.seeInfo(this);
-            } else {
-                mainController.funcedit(this);
-            }
-        }
-
-        @Override
-        public void cancelEdit() {
-            super.cancelEdit();
-        }
-
-        @Override
-        public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (empty) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                if (isEditing()) {
-                    if (textField != null) {
-                        textField.setText(getString());
-                    }
-                    setText(null);
-                    setGraphic(textField);
-                } else {
-                    setText(getString());
-                    setGraphic(getTreeItem().getGraphic());
-                    if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
-                        setContextMenu(projectMenu);
-                    } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
-                        setContextMenu(modelMenu);
-                    } else {
-                        setContextMenu(functionMenu);
-                    }
-                }
-            }
-        }
-
-//        private void createTextField() {
-//            textField = new TextField(getString());
-//            textField.setOnKeyReleased((KeyEvent t) -> {
-//                if (t.getCode() == KeyCode.ENTER) {
-//                    commitEdit(textField.getText());
-//                } else if (t.getCode() == KeyCode.ESCAPE) {
-//                    cancelEdit();
-//                }
-//            });
-//        }
-
-        private String getString() {
-            return getItem() == null ? "" : getItem().toString();
-        }
-    }
 }

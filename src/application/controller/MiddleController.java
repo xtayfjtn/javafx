@@ -2,6 +2,7 @@ package application.controller;
 
 import application.Util.DrawPane;
 import application.Util.Loger;
+import application.Util.TextFieldTreeCellImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -62,7 +63,7 @@ public class MiddleController implements Initializable {
     模块涉及函数
      */
     //新建模块
-    public void initModel(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+    public void initModel(TextFieldTreeCellImpl textFieldTreeCell) {
         mMiddle.getChildren().clear();
         mainController.hideComponent();
         Label projectname = new Label("模块名：");
@@ -93,7 +94,7 @@ public class MiddleController implements Initializable {
     }
 
     //模块详细描述
-    public void infoShown(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+    public void infoShown(TextFieldTreeCellImpl textFieldTreeCell) {
         mMiddle.getChildren().clear();
         mainController.showComponent();
         Label projectname = new Label("模块名：");
@@ -137,7 +138,7 @@ public class MiddleController implements Initializable {
     功能点设计函数
      */
     //展示功能点详细信息
-    public void funcShown(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+    public void funcShown(TextFieldTreeCellImpl textFieldTreeCell) {
         mMiddle.getChildren().clear();
         mainController.showComponent();
         Label funcName = new Label("功能名称：");
@@ -190,7 +191,7 @@ public class MiddleController implements Initializable {
     }
 
     //初始化功能点
-    public void initFunc(ProjectController.TextFieldTreeCellImpl textFieldTreeCell) {
+    public void initFunc(TextFieldTreeCellImpl textFieldTreeCell) {
         mMiddle.getChildren().clear();
         Label funcname = new Label("功能点：");
         TextField nametxt = new TextField("新功能");

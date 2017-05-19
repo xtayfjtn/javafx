@@ -12,7 +12,7 @@ public interface LineDao {
 
     public int update(Line line);
 
-    public int delete(int lineID);
+    public int delete(int line_id);
 
     public List<Line> selectAll();
 

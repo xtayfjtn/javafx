@@ -22,7 +22,7 @@ public class Loger {
             }
         }
 
-        String str = df.format(SystemUtil.getTime()) +" " + e + "\r";
+        String str = df.format(SystemUtil.getTime()) +" " + e + "\r\n";
         printout(str, file);
     }
 
@@ -39,7 +39,7 @@ public class Loger {
             }
         }
 
-        String str = df.format(SystemUtil.getTime()) +" " + info + "\r";
+        String str = df.format(SystemUtil.getTime()) +" " + info + "\r\n";
         printout(str, file);
 
     }

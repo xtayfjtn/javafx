@@ -13,11 +13,11 @@ public interface ShapeDao {
 
     public int update(Shape shape);
 
-    public int delete(int shapeID);
+    public int delete(int shape_id);
 
     public List<Shape> selectAll();
 
     public int countAll();
 
-    public Line find(int shapeID);
+    public Shape find(int shape_id);
 }

@@ -13,7 +13,7 @@ public interface ClauseDao {
 
     public int update(Clause clause);
 
-    public int delete(int clauseID);
+    public int delete(int clause_id);
 
     public List<Clause> selectAll();
 

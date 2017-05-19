@@ -2,6 +2,7 @@ package application;
 
 import application.Util.SystemUtil;
 import application.dao.*;
+import application.impl.*;
 import application.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -32,59 +33,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        SqlSession session = SystemUtil.openAndGetSession();
-//        一下测试Clause数据库连接
-//        ClauseDao clauseDao = session.getMapper(ClauseDao.class);
-//        List<Clause> clauses = clauseDao.selectAll();
-//        Iterator<Clause> iterator = clauses.iterator();
-//        while (iterator.hasNext()) {
-//            Clause c = iterator.next();
-//            System.out.println(c.toString());
-//        }
-//        以下测试Line;
-//        LineDao lineDao = session.getMapper(LineDao.class);
-//        List<Line> lines = lineDao.selectAll();
-//        Iterator<Line> iter = lines.iterator();
-//        while (iter.hasNext()) {
-//            Line l = iter.next();
-//            System.out.println(l.toString());
-//        }
-//        以下测试Parameter数据库连接
-//        ParameterDao parameterDao = session.getMapper(ParameterDao.class);
-//        Parameter parameter = new Parameter();
-//        parameterDao.insert(parameter);
-//        List<Parameter> parameters = parameterDao.selectAll();
-//        Iterator<Parameter> it = parameters.iterator();
-//        while (it.hasNext()) {
-//            Parameter p = it.next();
-//            System.out.println(p.toString());
-//        }
-//        以下测试Project数据库连接.
-        ProjectDao projectDao = session.getMapper(ProjectDao.class);
-
-        Project project = new Project();
-        project.setProjectName("我的天");
-
-        projectDao.insert(project);
-
-        List<Project> projects = projectDao.selectAll();
-        Iterator<Project> iterator = projects.iterator();
-        while (iterator.hasNext()) {
-            Project p = iterator.next();
-            System.out.println(p.toString());
-        }
-//        以下测试Shape连接数据库;
-//        ShapeDao shapeDao = session.getMapper(ShapeDao.class);
-//        Shape shape = new Shape();
-//        shapeDao.insert(shape);
-//        List<Shape> shapes = shapeDao.selectAll();
-//        Iterator<Shape> iterator = shapes.iterator();
-//        while (iterator.hasNext()) {
-//            Shape s = iterator.next();
-//            System.out.println(s.toString());
-//        }
-        session.commit();
-        session.close();
+        testTables();
         resourceBundle = ResourceBundle.getBundle("application.Lan", new Locale(SystemUtil.getLanguage()));
         //加载布局
         primaryStage.setTitle(resourceBundle.getString("application.title"));
@@ -96,6 +45,61 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
 
         primaryStage.show();
+    }
+
+
+
+    public void testTables() {
+//        SqlSession session = SystemUtil.openAndGetSession();
+        //        一下测试Clause数据库连接
+//        ClauseDao clauseDao = new ClauseDaoImpl();
+//        List<Clause> clauses = clauseDao.selectAll();
+//        for (int i = 0; i < clauses.size(); i++) {
+//            System.out.println(clauses.get(i).toString());
+//        }
+//        以下测试Line;
+//        LineDao lineDao = new LineDaoImpl();
+//        List<Line> lines = lineDao.selectAll();
+//        for (int i = 0; i < lines.size(); i++) {
+//            System.out.println(lines.get(i).toString());
+//        }
+//        以下测试Parameter数据库连接
+//        ParameterDao parameterDao = new ParameterDaoImpl();
+//        List<Parameter> parameters = parameterDao.selectAll();
+//        Iterator<Parameter> it = parameters.iterator();
+//        while (it.hasNext()) {
+//            Parameter p = it.next();
+//            System.out.println(p.toString());
+//        }
+//        以下测试Project数据库连接.
+//        ProjectDao projectDao = new ProjectDaoImpl();
+//        Project project = new Project();
+//        project.setDescription("dijie");
+//        projectDao.insert(project);
+//        System.out.println(project.toString());
+//        ProjectDao projectDao = session.getMapper(ProjectDao.class);
+//
+//        Project project = new Project();
+//        project.setProjectName("我的天");
+//
+//        projectDao.insert(project);
+//
+//        List<Project> projects = projectDao.selectAll();
+//        Iterator<Project> iterator = projects.iterator();
+//        while (iterator.hasNext()) {
+//            Project p = iterator.next();
+//            System.out.println(p.toString());
+//        }
+//        以下测试Shape连接数据库;
+//        ShapeDao shapeDao = new ShapeDaoImpl();
+//        List<Shape> shapes = shapeDao.selectAll();
+//        Iterator<Shape> iterator = shapes.iterator();
+//        while (iterator.hasNext()) {
+//            Shape s = iterator.next();
+//            System.out.println(s.toString());
+//        }
+//        session.commit();
+//        session.close();
     }
 
 
