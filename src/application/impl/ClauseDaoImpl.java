@@ -97,4 +97,47 @@ public class ClauseDaoImpl implements ClauseDao {
         session.close();
         return project;
     }
+
+    @Override
+    public List<Clause> selectByProject(int project_id) {
+        SqlSession session = SystemUtil.openAndGetSession();
+        List<Clause> clauses = null;
+        try {
+            clauses = session.selectList("application.mapper.ClauseDaoMapper.selectByProject", project_id);
+        } catch (Exception e) {
+            Loger.loge("Error when selectByProject.");
+        }
+        session.commit();
+        session.close();
+        return clauses;
+    }
+
+    @Override
+    public List<Clause> selectByFatherClause(int clause_id) {
+        SqlSession session = SystemUtil.openAndGetSession();
+        List<Clause> clauses = null;
+        try {
+            clauses = session.selectList("application.mapper.ClauseDaoMapper.selectByFatherClause", clause_id);
+        } catch (Exception e) {
+            Loger.loge("Error when selectByFatherClause");
+        }
+        session.commit();
+        session.close();
+        return clauses;
+    }
+
+    @Override
+    public int getMaxId() {
+        SqlSession session = SystemUtil.openAndGetSession();
+        int id = 0;
+        try {
+            id = session.selectOne("application.mapper.ClauseDaoMapper.getMaxId");
+        } catch (Exception e) {
+            Loger.loge("Error when getMaxId of Clause");
+        }
+
+        session.commit();
+        session.close();
+        return id;
+    }
 }

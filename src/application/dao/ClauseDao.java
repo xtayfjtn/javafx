@@ -20,4 +20,10 @@ public interface ClauseDao {
     public int countAll();
 
     public Project findByClauseName(String clauseName);
+
+    public List<Clause> selectByProject(int project_id);
+
+    public List<Clause> selectByFatherClause(int clause_id);
+
+    public int getMaxId();
 }

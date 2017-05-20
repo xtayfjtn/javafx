@@ -12,18 +12,20 @@ import java.util.ResourceBundle;
 public class MenuController implements Initializable {
     private MainController main;
     public int flag = 0;
+    /*
+    **新建一个工程
+     */
     public void onNewProjectClick(ActionEvent event) {
-        System.out.println("Create new Project!");
         main.initProject();
     }
 
     public void onOpenProjectClick(ActionEvent event) {
         System.out.println("Open a project!");
+        main.openProject();
     }
 
     public void onSaveProjectClick(ActionEvent event) {
         System.out.println("Save project");
-
     }
 
     public void onNewModelClick(ActionEvent event) {
@@ -56,7 +58,8 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        ControllerBridge.getInstance().registerController2(controller2Controller);
+//        ControllerBridge.getInstance().r
+// .egisterController2(controller2Controller);
 //        ControllerBridge.getInstance().registerController3(controller3Controller);
     }
 

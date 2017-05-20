@@ -3,6 +3,7 @@ package application.controller;
 import application.Util.DrawPane;
 import application.Util.Loger;
 import application.Util.TextFieldTreeCellImpl;
+import application.model.Clause;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -31,7 +32,7 @@ public class MiddleController implements Initializable {
      */
 
     //对项目进行初始化 输入工程名等信息
-    public void projectInition() {
+    public void initProject() {
         mMiddle.getChildren().clear();
         mainController.hideComponent();
         Label projectname = new Label("工程名：");
@@ -42,7 +43,7 @@ public class MiddleController implements Initializable {
             if (name.equals("")) {
                 Loger.logi("工程名为空");
             } else {
-                mainController.addProjcet(name);
+                mainController.addProject(name);
                 mMiddle.getChildren().clear();
             }
         });
@@ -75,8 +76,12 @@ public class MiddleController implements Initializable {
                 Loger.logi("模块名为空");
             } else {
                 mMiddle.getChildren().clear();
-                TreeItem newModel = new TreeItem<>(name);
-                textFieldTreeCell.getTreeItem().getChildren().addAll(newModel);
+                mainController.addModel(name, textFieldTreeCell);
+//                Clause clause = new Clause();
+//                clause.setClauseName(name);
+//                clause.setcType("模块");
+//                TreeItem newModel = new TreeItem<>(clause);
+//                textFieldTreeCell.getTreeItem().getChildren().addAll(newModel);
             }
         });
         Button cancel = new Button("取消");
@@ -202,8 +207,12 @@ public class MiddleController implements Initializable {
                 Loger.loge("功能点名称为空");
             } else {
                 mMiddle.getChildren().clear();
-                TreeItem newFunc = new TreeItem<>(name);
-                textFieldTreeCell.getTreeItem().getChildren().addAll(newFunc);
+                mainController.addFunc(name, textFieldTreeCell);
+//                Clause clause = new Clause();
+//                clause.setClauseName(name);
+//                clause.setcType("功能点");
+//                TreeItem newFunc = new TreeItem<>(clause);
+//                textFieldTreeCell.getTreeItem().getChildren().addAll(newFunc);
             }
         });
         Button cancel = new Button("取消");

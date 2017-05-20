@@ -5,11 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Window;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,11 +37,11 @@ public class MainController implements Initializable {
 
     //为新建的工程的初始化方法进行调用
     public void initProject() {
-        middleController.projectInition();
+        middleController.initProject();
     }
 
     //在工程目录中添加树视图
-    public void addProjcet(String name) {
+    public void addProject(String name) {
         projectController.newProject(name);
     }
 
@@ -56,9 +53,13 @@ public class MainController implements Initializable {
     public void seeInfo(TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.infoShown(textFieldTreeCell);
     }
-    //新建模块
-    public void addModel(TextFieldTreeCellImpl textFieldTreeCell) {
+    //初始化模块信息
+    public void initModel(TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.initModel(textFieldTreeCell);
+    }
+    public void addModel(String name, TextFieldTreeCellImpl textFieldTreeCell) {
+        projectController.newModel(name, textFieldTreeCell);
+
     }
 
     //查看功能点信息
@@ -67,7 +68,7 @@ public class MainController implements Initializable {
     }
 
 
-    public void addFunc(TextFieldTreeCellImpl textFieldTreeCell) {
+    public void initFunc(TextFieldTreeCellImpl textFieldTreeCell) {
         middleController.initFunc(textFieldTreeCell);
     }
 
@@ -77,5 +78,14 @@ public class MainController implements Initializable {
 
     public void hideComponent() {
         componentController.hidePane();
+    }
+
+    public void openProject() {
+        //暂时写死读取的project。
+        projectController.openProject("我的天");
+    }
+
+    public void addFunc(String name, TextFieldTreeCellImpl textFieldTreeCell) {
+        projectController.newFunc(name, textFieldTreeCell);
     }
 }

@@ -10,11 +10,11 @@
     </select>
 
     <insert id="insert" parameterType="application.model.Clause">
-        insert into clause(project_id, clausename, description, cType, cOrder, cLevel, fatherclause_id) values(#{project_id}, #{clauseName}, #{description}, #{cType}, #{cOrder}, #{cLevel}, #{fatherClauseID})
+        insert into clause(project_id, clausename, description, cType, cOrder, cLevel, fatherclause_id) values(#{project_id}, #{clauseName}, #{description}, #{cType}, #{cOrder}, #{cLevel}, #{fatherClause_id})
     </insert>
 
     <update id="update" parameterType="application.model.Clause">
-        update clause set project_id=#{projectName}, clauseName=#{clauseName}, description=#{description}, cType=#{cType}, cOrder=#{cOrder}, cLevel=#{cLevel}, fatherclause_id={fatherClauseID} where clause_id=#{clause_id}
+        update clause set project_id=#{projectName}, clauseName=#{clauseName}, description=#{description}, cType=#{cType}, cOrder=#{cOrder}, cLevel=#{cLevel}, fatherclause_id={fatherClause_id} where clause_id=#{clause_id}
     </update>
 
     <delete id="delete" parameterType="int">
@@ -23,5 +23,17 @@
 
     <select id="findByClauseName" parameterType="String" resultType="application.model.Clause">
         select * from clause where clauseName=#{clauseName}
+    </select>
+    
+    <select id="selectByProject" parameterType="int" resultType="application.model.Clause">
+        SELECT * from clause where project_id = #{project_id} AND fatherclause_id = 0
+    </select>
+
+    <select id="selectByFatherClause" parameterType="int" resultType="application.model.Clause">
+        SELECT * FROM clause WHERE fatherclause_id = #{clause_id}
+    </select>
+
+    <select id="getMaxId" resultType="int">
+        SELECT MAX(clause_id) FROM clause;
     </select>
 </mapper>

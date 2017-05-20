@@ -1,6 +1,8 @@
 package application.Util;
 
 import application.controller.MainController;
+import application.model.Clause;
+import application.model.Project;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -10,7 +12,7 @@ import javafx.scene.control.TreeCell;
 /**
  * Created by ZQ on 2017/5/19.
  */
-public class TextFieldTreeCellImpl extends TreeCell<String > {
+public class TextFieldTreeCellImpl extends TreeCell<Object> {
     public String modelInfo = "";
     public String funcInfo = "";
     public String funcInput = "";
@@ -27,7 +29,7 @@ public class TextFieldTreeCellImpl extends TreeCell<String > {
         this.mainController = mainController;
         MenuItem addMenuItem = new MenuItem("添加模块");
         addMenuItem.setOnAction((ActionEvent t) -> {
-            mainController.addModel(this);
+            mainController.initModel(this);
 //                TreeItem newEmployee = new TreeItem<>("新模块");
 //                getTreeItem().getChildren().add(newEmployee);
         });
@@ -39,8 +41,9 @@ public class TextFieldTreeCellImpl extends TreeCell<String > {
         });
         MenuItem addFuncItem = new MenuItem("添加功能点");
         addFuncItem.setOnAction((ActionEvent t) -> {
-            mainController.addFunc(this);
+            mainController.initFunc(this);
         });
+        modelMenu.getItems().add(addMenuItem);
         modelMenu.getItems().add(addFuncItem);
         modelMenu.getItems().add(modelInfoItem);
 
@@ -55,13 +58,26 @@ public class TextFieldTreeCellImpl extends TreeCell<String > {
     @Override
     public void startEdit() {
         super.startEdit();
-        if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
-//                mainController.funcedit(this);
-        } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
-            mainController.seeInfo(this);
-        } else {
-            mainController.funcedit(this);
+
+        if (getItem() instanceof Project) {
+
         }
+        if (getItem() instanceof Clause) {
+            Clause clause = (Clause)getItem();
+            if (clause.getcType().equals("模块"))
+            {
+                mainController.seeInfo(this);
+            } else {
+                mainController.funcedit(this);
+            }
+        }
+//        if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
+////                mainController.funcedit(this);
+//        } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
+//            mainController.seeInfo(this);
+//        } else {
+//            mainController.funcedit(this);
+//        }
     }
 
     @Override
@@ -70,7 +86,7 @@ public class TextFieldTreeCellImpl extends TreeCell<String > {
     }
 
     @Override
-    public void updateItem(String item, boolean empty) {
+    public void updateItem(Object item, boolean empty) {
         super.updateItem(item, empty);
 
         if (empty) {
@@ -86,13 +102,25 @@ public class TextFieldTreeCellImpl extends TreeCell<String > {
             } else {
                 setText(getString());
                 setGraphic(getTreeItem().getGraphic());
-                if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
+                if (getItem() instanceof Project ) {
                     setContextMenu(projectMenu);
-                } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
-                    setContextMenu(modelMenu);
-                } else {
-                    setContextMenu(functionMenu);
                 }
+                if (getItem() instanceof Clause) {
+                    Clause clause = (Clause)getItem();
+                    if (clause.getcType().equals("模块"))
+                    {
+                        setContextMenu(modelMenu);
+                    } else {
+                        setContextMenu(functionMenu);
+                    }
+                }
+//                if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
+//                    setContextMenu(projectMenu);
+//                } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
+//                    setContextMenu(modelMenu);
+//                } else {
+//                    setContextMenu(functionMenu);
+//                }
             }
         }
     }
@@ -109,6 +137,17 @@ public class TextFieldTreeCellImpl extends TreeCell<String > {
 //        }
 
     private String getString() {
-        return getItem() == null ? "" : getItem().toString();
+        if (getItem() == null) {
+            return "";
+        }
+        else {
+            if (getItem() instanceof Clause) {
+                return ((Clause)getItem()).getClauseName();
+            } else if (getItem() instanceof Project){
+                return ((Project)getItem()).getProjectName();
+            } else {
+                return getItem().toString();
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ public class Clause {
     private String cType = "模块/功能";
     private String cOrder = "1";
     private String cLevel = "2";
-    private int fatherClauseID;
+    private int fatherClause_id;
 
     @XmlElement
     public int getClause_id() {
@@ -86,13 +86,13 @@ public class Clause {
     }
 
     @XmlElement
-    public int getFatherClauseID() {
-        return fatherClauseID;
+    public int getFatherClause_id() {
+        return fatherClause_id;
     }
 
     @XmlElement
-    public void setFatherClauseID(int fatherClauseID) {
-        this.fatherClauseID = fatherClauseID;
+    public void setFatherClause_id(int fatherClause_id) {
+        this.fatherClause_id = fatherClause_id;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Clause {
                 ", cType='" + cType + '\'' +
                 ", cOrder='" + cOrder + '\'' +
                 ", cLevel='" + cLevel + '\'' +
-                ", fatherClauseID=" + fatherClauseID +
+                ", fatherClause_id=" + fatherClause_id +
                 '}';
     }
 }
