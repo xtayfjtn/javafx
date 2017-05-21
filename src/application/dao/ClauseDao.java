@@ -19,7 +19,7 @@ public interface ClauseDao {
 
     public int countAll();
 
-    public Project findByClauseName(String clauseName);
+    public Clause findByClauseName(String clauseName);
 
     public List<Clause> selectByProject(int project_id);
 

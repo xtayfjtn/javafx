@@ -1,3 +1,8 @@
 2017-04-11 12:14:43 功能点名称为空2017-05-19 15:48:14 samename in the project2017-05-19 15:49:42 samename in the project2017-05-19 15:50:06 samename in the project
 2017-05-19 21:22:00 Error when selectByFatherClause
 2017-05-19 21:22:00 Error when selectByFatherClause
+2017-05-21 11:30:59 Error when updating Clause;
+2017-05-21 11:33:03 Error when updating Clause;
+2017-05-21 11:41:47 Error when updating Clause;
+2017-05-21 15:13:27 Error when insertUpdate Parameter.
+2017-05-21 15:13:27 Error when insertUpdate Parameter.

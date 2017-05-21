@@ -53,6 +53,9 @@ public class Main extends Application {
 //        SqlSession session = SystemUtil.openAndGetSession();
         //        一下测试Clause数据库连接
 //        ClauseDao clauseDao = new ClauseDaoImpl();
+//        Clause clause = clauseDao.findByClauseName("总模块");
+//        clause.setDescription("woqutmde");
+//        clauseDao.update(clause);
 //        List<Clause> clauses = clauseDao.selectAll();
 //        for (int i = 0; i < clauses.size(); i++) {
 //            System.out.println(clauses.get(i).toString());

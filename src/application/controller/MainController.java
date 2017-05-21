@@ -1,6 +1,13 @@
 package application.controller;
 
+import application.Util.DrawPane;
 import application.Util.TextFieldTreeCellImpl;
+import application.dao.ClauseDao;
+import application.dao.ParameterDao;
+import application.impl.ClauseDaoImpl;
+import application.impl.ParameterDaoImpl;
+import application.model.Clause;
+import application.model.Parameter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -45,13 +52,13 @@ public class MainController implements Initializable {
         projectController.newProject(name);
     }
 
-    public void editModel(TextFieldTreeCellImpl textFieldTreeCell) {
-        System.out.println(textFieldTreeCell.getText());
-    }
+//    public void editModel(TextFieldTreeCellImpl textFieldTreeCell) {
+//        System.out.println(textFieldTreeCell.getText());
+//    }
 
     //查看模块的信息
-    public void seeInfo(TextFieldTreeCellImpl textFieldTreeCell) {
-        middleController.infoShown(textFieldTreeCell);
+    public void editModel(TextFieldTreeCellImpl textFieldTreeCell) {
+        middleController.modelInfo(textFieldTreeCell);
     }
     //初始化模块信息
     public void initModel(TextFieldTreeCellImpl textFieldTreeCell) {
@@ -63,8 +70,8 @@ public class MainController implements Initializable {
     }
 
     //查看功能点信息
-    public void funcedit(TextFieldTreeCellImpl textFieldTreeCell) {
-        middleController.funcShown(textFieldTreeCell);
+    public void editFunc(TextFieldTreeCellImpl textFieldTreeCell) {
+        middleController.funcInfo(textFieldTreeCell);
     }
 
 
@@ -87,5 +94,37 @@ public class MainController implements Initializable {
 
     public void addFunc(String name, TextFieldTreeCellImpl textFieldTreeCell) {
         projectController.newFunc(name, textFieldTreeCell);
+    }
+
+    public void saveModel(TextFieldTreeCellImpl textFieldTreeCell, String name, String info, DrawPane modelAction) {
+        if (textFieldTreeCell.getItem() instanceof Clause) {
+            Clause clause = (Clause) textFieldTreeCell.getItem();
+            clause.setClauseName(name);
+            clause.setDescription(info);
+            ClauseDao clauseDao = new ClauseDaoImpl();
+            clauseDao.update(clause);
+        }
+    }
+
+    public void saveFunc(TextFieldTreeCellImpl textFieldTreeCell, String funcName, String description, String input, String output, DrawPane funcAction) {
+        if (textFieldTreeCell.getItem() instanceof Clause) {
+            Clause clause = (Clause) textFieldTreeCell.getItem();
+            clause.setClauseName(funcName);
+            clause.setDescription(description);
+            ParameterDao parameterDao = new ParameterDaoImpl();
+            Parameter inputParameter = parameterDao.getInputParameter(clause.getClause_id());
+            inputParameter.setParameterName(input);
+            inputParameter.setClause_id(clause.getClause_id());
+            parameterDao.insertUpdate(inputParameter);
+//            inputParameter.setParameter_id(parameterDao.getMaxId());
+
+            Parameter outParameter = parameterDao.getOutputParameter(clause.getClause_id());
+            outParameter.setParameterName(output);
+            outParameter.setClause_id(clause.getClause_id());
+            parameterDao.insertUpdate(outParameter);
+
+            ClauseDao clauseDao = new ClauseDaoImpl();
+            clauseDao.update(clause);
+        }
     }
 }

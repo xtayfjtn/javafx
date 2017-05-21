@@ -24,4 +24,18 @@
     <select id="find" parameterType="int" resultType="application.model.Parameter">
         select * from paremeter where parameter_id=#{parameter_id}
     </select>
+
+    <select id="getMaxId" resultType="int">
+        SELECT MAX(parameter_id) FROM parameter;
+    </select>
+
+    <select id="insertUpdate" parameterType="application.model.Parameter" resultType="int">
+        INSERT INTO parameter(parameter_id, category, ptype, parametername, description, porder, clause_id) VALUES (#{parameter_id}, #{category}, #{pType}, #{parameterName}, #{description}, #{pOrder}, #{clause_id}) ON DUPLICATE KEY UPDATE category = #{category}, ptype = #{pType}, parametername = #{parameterName}, description = #{description}, porder = #{pOrder}, clause_id = #{clause_id}
+    </select>
+    <select id="getInputParameter" parameterType="int" resultType="application.model.Parameter">
+        SELECT * FROM parameter WHERE clause_id = #{clause_id} AND ptype="input"
+    </select>
+    <select id="getOutputParameter" parameterType="int" resultType="application.model.Parameter">
+        SELECT * FROM parameter WHERE clause_id = #{clause_id} AND ptype="output"
+    </select>
 </mapper>

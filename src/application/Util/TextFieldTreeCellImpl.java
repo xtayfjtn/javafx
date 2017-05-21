@@ -13,7 +13,6 @@ import javafx.scene.control.TreeCell;
  * Created by ZQ on 2017/5/19.
  */
 public class TextFieldTreeCellImpl extends TreeCell<Object> {
-    public String modelInfo = "";
     public String funcInfo = "";
     public String funcInput = "";
     public String funcOutput = "";
@@ -30,14 +29,12 @@ public class TextFieldTreeCellImpl extends TreeCell<Object> {
         MenuItem addMenuItem = new MenuItem("添加模块");
         addMenuItem.setOnAction((ActionEvent t) -> {
             mainController.initModel(this);
-//                TreeItem newEmployee = new TreeItem<>("新模块");
-//                getTreeItem().getChildren().add(newEmployee);
         });
         projectMenu.getItems().add(addMenuItem);
 
         MenuItem modelInfoItem = new MenuItem("查看详情");
         modelInfoItem.setOnAction(event -> {
-            mainController.seeInfo(this);
+            mainController.editModel(this);
         });
         MenuItem addFuncItem = new MenuItem("添加功能点");
         addFuncItem.setOnAction((ActionEvent t) -> {
@@ -49,7 +46,7 @@ public class TextFieldTreeCellImpl extends TreeCell<Object> {
 
         MenuItem funcInfoItem = new MenuItem("查看详情");
         funcInfoItem.setOnAction(event -> {
-            mainController.funcedit(this);
+            mainController.editFunc(this);
         });
         functionMenu.getItems().add(funcInfoItem);
 
@@ -66,17 +63,17 @@ public class TextFieldTreeCellImpl extends TreeCell<Object> {
             Clause clause = (Clause)getItem();
             if (clause.getcType().equals("模块"))
             {
-                mainController.seeInfo(this);
+                mainController.editModel(this);
             } else {
-                mainController.funcedit(this);
+                mainController.editFunc(this);
             }
         }
 //        if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
-////                mainController.funcedit(this);
+////                mainController.editFunc(this);
 //        } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
-//            mainController.seeInfo(this);
+//            mainController.editModel(this);
 //        } else {
-//            mainController.funcedit(this);
+//            mainController.editFunc(this);
 //        }
     }
 

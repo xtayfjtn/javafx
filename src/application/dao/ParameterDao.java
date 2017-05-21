@@ -20,4 +20,11 @@ public interface ParameterDao {
     public int countAll();
 
     public Parameter find(int parameter_id);
+
+    public int getMaxId();
+
+    public void insertUpdate(Parameter parameter);
+
+    public Parameter getInputParameter(int clause_id);
+    public Parameter getOutputParameter(int clause_id);
 }

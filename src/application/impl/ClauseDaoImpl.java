@@ -85,17 +85,17 @@ public class ClauseDaoImpl implements ClauseDao {
     }
 
     @Override
-    public Project findByClauseName(String clauseName) {
+    public Clause findByClauseName(String clauseName) {
         SqlSession session = SystemUtil.openAndGetSession();
-        Project project = null;
+        Clause clause = null;
         try {
-            project = session.selectOne("application.mapper.ClauseDaoMapper.findByClauseName", clauseName);
+            clause = session.selectOne("application.mapper.ClauseDaoMapper.findByClauseName", clauseName);
         } catch (Exception e) {
             Loger.loge("Error when findbyclausename;");
         }
         session.commit();
         session.close();
-        return project;
+        return clause;
     }
 
     @Override

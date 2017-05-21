@@ -96,5 +96,61 @@ public class ParameterDaoImpl implements ParameterDao {
         session.close();
         return parameter;
     }
+
+    @Override
+    public int getMaxId() {
+        SqlSession session = SystemUtil.openAndGetSession();
+        int id = 0;
+        try {
+            id = session.selectOne("application.mapper.ParameterDaoMapper.getMaxId");
+        } catch (Exception e) {
+            Loger.loge("Error when get max id");
+        }
+        session.commit();
+        session.close();
+        return id;
+    }
+
+    @Override
+    public void insertUpdate(Parameter parameter) {
+        SqlSession session = SystemUtil.openAndGetSession();
+//        int num = 0;
+//        session.selectOne("application.mapper.ParameterDaoMapper.insertUpdate", parameter);
+        try {
+            session.selectOne("application.mapper.ParameterDaoMapper.insertUpdate", parameter);
+        } catch (Exception e) {
+            Loger.loge("Error when insertUpdate Parameter.");
+        }
+        session.commit();
+        session.close();
+    }
+
+    @Override
+    public Parameter getInputParameter(int clause_id) {
+        SqlSession session = SystemUtil.openAndGetSession();
+        Parameter parameter = null;
+        try {
+            parameter = session.selectOne("application.mapper.ParameterDaoMapper.getInputParameter", clause_id);
+        } catch (Exception e) {
+            Loger.loge("Error when getInputParameter");
+        }
+        session.commit();
+        session.close();
+        return parameter;
+    }
+
+    @Override
+    public Parameter getOutputParameter(int clause_id) {
+        SqlSession session = SystemUtil.openAndGetSession();
+        Parameter parameter = null;
+        try {
+            parameter = session.selectOne("application.mapper.ParameterDaoMapper.getOutputParameter", clause_id);
+        } catch (Exception e) {
+            Loger.loge("Error when getOutputParameter");
+        }
+        session.commit();
+        session.close();
+        return parameter;
+    }
 }
 

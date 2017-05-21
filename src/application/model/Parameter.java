@@ -12,7 +12,7 @@ public class Parameter {
     private String parameterName = "parameterName";
     private String description = "这是描述";
     private String pOrder = "order1";
-    private String clause_id;
+    private int clause_id;
 
     @XmlElement
     public int getParameter_id() {
@@ -75,12 +75,12 @@ public class Parameter {
     }
 
     @XmlElement
-    public String getClause_id() {
+    public int getClause_id() {
         return clause_id;
     }
 
     @XmlElement
-    public void setClause_id(String clause_id) {
+    public void setClause_id(int clause_id) {
         this.clause_id = clause_id;
     }
 

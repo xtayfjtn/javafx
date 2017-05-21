@@ -14,7 +14,7 @@
     </insert>
 
     <update id="update" parameterType="application.model.Clause">
-        update clause set project_id=#{projectName}, clauseName=#{clauseName}, description=#{description}, cType=#{cType}, cOrder=#{cOrder}, cLevel=#{cLevel}, fatherclause_id={fatherClause_id} where clause_id=#{clause_id}
+        update clause set clauseName=#{clauseName}, description=#{description}, cType=#{cType}, cOrder=#{cOrder}, cLevel=#{cLevel}, fatherclause_id=#{fatherClause_id} where clause_id=#{clause_id}
     </update>
 
     <delete id="delete" parameterType="int">

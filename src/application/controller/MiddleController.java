@@ -3,7 +3,10 @@ package application.controller;
 import application.Util.DrawPane;
 import application.Util.Loger;
 import application.Util.TextFieldTreeCellImpl;
+import application.dao.ParameterDao;
+import application.impl.ParameterDaoImpl;
 import application.model.Clause;
+import application.model.Parameter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -99,7 +102,7 @@ public class MiddleController implements Initializable {
     }
 
     //模块详细描述
-    public void infoShown(TextFieldTreeCellImpl textFieldTreeCell) {
+    public void modelInfo(TextFieldTreeCellImpl textFieldTreeCell) {
         mMiddle.getChildren().clear();
         mainController.showComponent();
         Label projectname = new Label("模块名：");
@@ -108,13 +111,14 @@ public class MiddleController implements Initializable {
 
         TextField nametxt = new TextField(textFieldTreeCell.getText());
         nametxt.setEditable(true);
-        TextArea infoText = new TextArea(textFieldTreeCell.modelInfo);
+        TextArea infoText = new TextArea(((Clause)textFieldTreeCell.getItem()).getDescription());
         DrawPane modelAction = new DrawPane();
         modelAction.getStyleClass().add("drawpane");
         Button confirmbtn = new Button("确定");
         confirmbtn.setOnAction(event -> {
             mMiddle.getChildren().clear();
-            textFieldTreeCell.modelInfo = infoText.getText();
+            mainController.saveModel(textFieldTreeCell, nametxt.getText(), infoText.getText(), modelAction);
+//            textFieldTreeCell.modelInfo = infoText.getText();
             mainController.hideComponent();
         });
         Button cancel = new Button("取消");
@@ -143,7 +147,7 @@ public class MiddleController implements Initializable {
     功能点设计函数
      */
     //展示功能点详细信息
-    public void funcShown(TextFieldTreeCellImpl textFieldTreeCell) {
+    public void funcInfo(TextFieldTreeCellImpl textFieldTreeCell) {
         mMiddle.getChildren().clear();
         mainController.showComponent();
         Label funcName = new Label("功能名称：");
@@ -151,10 +155,35 @@ public class MiddleController implements Initializable {
         Label inputlab = new Label("输入：");
         Label outputlab = new Label("输出：");
         Label actionlab = new Label("功能行为：");
-        TextField funcNametxt = new TextField(textFieldTreeCell.getText());
-        TextArea funcDisplaytxt = new TextArea(textFieldTreeCell.funcInfo);
-        TextArea inputtxt = new TextArea(textFieldTreeCell.funcInput);
-        TextArea outputtxt = new TextArea(textFieldTreeCell.funcOutput);
+
+        String cFuncName = "";
+        String cFuncDesc = "";
+        String cFuncInput = "";
+        String cFuncOutput = "";
+        if (textFieldTreeCell.getItem() instanceof Clause) {
+            Clause clause = (Clause) textFieldTreeCell.getItem();
+            cFuncName = clause.getClauseName();
+            cFuncDesc = clause.getDescription();
+            ParameterDao parameterDao = new ParameterDaoImpl();
+            Parameter inputParameter = parameterDao.getInputParameter(clause.getClause_id());
+            Parameter outputParameter = parameterDao.getOutputParameter(clause.getClause_id());
+            if (inputParameter == null) {
+                inputParameter = new Parameter();
+                inputParameter.setClause_id(clause.getClause_id());
+                inputParameter.setpType("input");
+                outputParameter = new Parameter();
+                outputParameter.setClause_id(clause.getClause_id());
+                outputParameter.setpType("output");
+                parameterDao.insert(inputParameter);
+                parameterDao.insert(outputParameter);
+            }
+            cFuncInput = inputParameter.getParameterName();
+            cFuncOutput = outputParameter.getParameterName();
+        }
+        TextField funcNametxt = new TextField(cFuncName);
+        TextArea funcDisplaytxt = new TextArea(cFuncDesc);
+        TextArea inputtxt = new TextArea(cFuncInput);
+        TextArea outputtxt = new TextArea(cFuncOutput);
         DrawPane funcAction = new DrawPane();
         funcAction.getStyleClass().add("drawpane");
 //        TextArea test = new TextArea();
@@ -162,9 +191,10 @@ public class MiddleController implements Initializable {
 
         Button confirmbtn = new Button("确定");
         confirmbtn.setOnAction(event -> {
-            textFieldTreeCell.funcInfo = funcDisplaytxt.getText();
-            textFieldTreeCell.funcInput = inputtxt.getText();
-            textFieldTreeCell.funcOutput = outputtxt.getText();
+            mainController.saveFunc(textFieldTreeCell,funcNametxt.getText(), funcDisplaytxt.getText(), inputtxt.getText(), outputtxt.getText(), funcAction);
+//            textFieldTreeCell.funcInfo = funcDisplaytxt.getText();
+//            textFieldTreeCell.funcInput = inputtxt.getText();
+//            textFieldTreeCell.funcOutput = outputtxt.getText();
             mMiddle.getChildren().clear();
             mainController.hideComponent();
         });
