@@ -34,11 +34,11 @@ public class Center {
         centerY.set(bounds.getMinY() + bounds.getHeight() / 2);
     }
 
-    DoubleProperty centerXProperty() {
+    public DoubleProperty centerXProperty() {
         return centerX;
     }
 
-    DoubleProperty centerYProperty() {
+    public DoubleProperty centerYProperty() {
         return centerY;
     }
 }

@@ -33,10 +33,11 @@ import java.net.URL;
  */
 public class CircleCom extends Circle implements BaseCom{
 
-    protected Label attr;
+    public Label attr;
     protected double mradius;
-    protected double pWidth;
-    protected double pHeight;
+    protected int shape_id = 0;
+//    protected double pWidth;
+//    protected double pHeight;
     protected DrawPane parentPane;
 
     private long currentTime = 0;
@@ -44,23 +45,21 @@ public class CircleCom extends Circle implements BaseCom{
 
     public CircleCom(Color color, DoubleProperty x, DoubleProperty y) {
         super(x.get(), y.get(), 10);
-        setFill(color.deriveColor(1, 1, 1, 0.5));
-        setStroke(color);
-        setStrokeWidth(2);
-        setStrokeType(StrokeType.OUTSIDE);
-
         x.bind(centerXProperty());
         y.bind(centerYProperty());
         addEvent();
     }
 
-    public CircleCom(Color color, DoubleProperty x, DoubleProperty y, double radius, DrawPane pane) {
+    public CircleCom(DoubleProperty x, DoubleProperty y, double radius, DrawPane pane) {
         super(x.get(), y.get(), radius);
         x.bind(centerXProperty());
         y.bind(centerXProperty());
-        pWidth = pane.getWidth();
-        pHeight = pane.getHeight();
+//        pWidth = pane.getWidth();
+//        pHeight = pane.getHeight();
         parentPane = pane;
+        attr = new Label("开始");
+        attr.layoutXProperty().bind(centerXProperty().add(-radius));
+        attr.layoutYProperty().bind(centerYProperty().add(radius));
         addEvent();
     }
 
@@ -71,8 +70,8 @@ public class CircleCom extends Circle implements BaseCom{
         attr.layoutYProperty().bind(centerYProperty().add(radius));
         x.bind(centerXProperty());
         y.bind(centerXProperty());
-        pWidth = pane.getWidth();
-        pHeight = pane.getHeight();
+//        pWidth = pane.getWidth();
+//        pHeight = pane.getHeight();
         parentPane = pane;
         addEvent();
     }
@@ -129,12 +128,12 @@ public class CircleCom extends Circle implements BaseCom{
                 return;
             }
             double newX = e.getX() + dragDelta.x;
-            if (newX > 0 && newX < pWidth) {
+            if (newX > 0 && newX < parentPane.getWidth()) {
                 setCenterX(newX);
             }
 
             double newY = e.getY() + dragDelta.y;
-            if (newY > 0 && newY < pHeight) {
+            if (newY > 0 && newY < parentPane.getHeight()) {
                 setCenterY(newY);
             }
         });
@@ -171,7 +170,15 @@ public class CircleCom extends Circle implements BaseCom{
         public double y;
     }
 
-//    public boolean hasIn(double x, double y) {
+    public int getShape_id() {
+        return shape_id;
+    }
+
+    public void setShape_id(int shape_id) {
+        this.shape_id = shape_id;
+    }
+
+    //    public boolean hasIn(double x, double y) {
 //        double len = (x - getCenterX()) * (x - getCenterX()) + (y - getCenterY()) * (y - getCenterY());
 //        if (len > getRadius() * getRadius()) {
 //            return false;

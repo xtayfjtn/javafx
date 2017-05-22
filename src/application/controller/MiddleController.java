@@ -1,25 +1,42 @@
 package application.controller;
 
-import application.Util.DrawPane;
-import application.Util.Loger;
-import application.Util.TextFieldTreeCellImpl;
+import application.Util.*;
+import application.dao.ClauseDao;
+import application.dao.LineDao;
 import application.dao.ParameterDao;
+import application.dao.ShapeDao;
+import application.impl.LineDaoImpl;
 import application.impl.ParameterDaoImpl;
+import application.impl.ShapeDaoImpl;
 import application.model.Clause;
+import application.model.Line;
 import application.model.Parameter;
+import application.model.Shape;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
  * Created by ZQ on 2017/4/8.
  */
 public class MiddleController implements Initializable {
+    public static final int START_TYPE = 1;
+    public static final int ELLIPSE_TYPE = 2;
+    public static final int BRANCH_TYPE = 3;
+    public static final int SYNCH_TYPE = 4;
+    public static final int END_TYPE = 5;
     private MainController mainController;
     @FXML private GridPane mMiddle;
     @Override
@@ -111,8 +128,12 @@ public class MiddleController implements Initializable {
 
         TextField nametxt = new TextField(textFieldTreeCell.getText());
         nametxt.setEditable(true);
-        TextArea infoText = new TextArea(((Clause)textFieldTreeCell.getItem()).getDescription());
+        Clause clause = ((Clause)textFieldTreeCell.getItem());
+
+        TextArea infoText = new TextArea(clause.getDescription());
         DrawPane modelAction = new DrawPane();
+        modelAction.setPrefWidth(505);
+        modelAction.setPrefHeight(300);
         modelAction.getStyleClass().add("drawpane");
         Button confirmbtn = new Button("确定");
         confirmbtn.setOnAction(event -> {
@@ -126,6 +147,108 @@ public class MiddleController implements Initializable {
             mMiddle.getChildren().clear();
             mainController.hideComponent();
         });
+
+        ShapeDao shapeDao = new ShapeDaoImpl();
+        List<Shape> shapes = shapeDao.selectShapesByClauseId(clause.getClause_id());
+        Iterator<Shape> iterator = shapes.iterator();
+        List<BaseCom> components = new ArrayList<>();
+        while (iterator.hasNext()) {
+            Shape s = iterator.next();
+            switch (s.getsType()) {
+                case START_TYPE:
+                    DoubleProperty layoutX = new SimpleDoubleProperty(s.getLayoutX());
+                    DoubleProperty layoutY = new SimpleDoubleProperty(s.getLayoutY());
+                    CircleCom circleCom = new CircleCom(layoutX, layoutY, 15, modelAction);
+                    circleCom.setShape_id(s.getShape_id());
+                    circleCom.attr.setText(s.getAttr());
+                    components.add(circleCom);
+                    modelAction.getChildren().add(circleCom);
+                    modelAction.getChildren().add(circleCom.attr);
+                    break;
+                case ELLIPSE_TYPE:
+                    EllipseCom ellipseCom = new EllipseCom(s.getLayoutX(), s.getLayoutY(), 40, 20, modelAction);
+                    ellipseCom.setShape_id(s.getShape_id());
+                    ellipseCom.attr.setText(s.getAttr());
+                    components.add(ellipseCom);
+                    modelAction.getChildren().add(ellipseCom);
+                    modelAction.getChildren().add(ellipseCom.attr);
+                    break;
+                case BRANCH_TYPE:
+                    PolygonCom polygonCom = new PolygonCom();
+                    break;
+                case SYNCH_TYPE:
+                    SynchCom line = new SynchCom(s.getLayoutX() - 40 - 1, s.getLayoutY(), s.getLayoutX() + 40 - 1, s.getLayoutY(), modelAction);
+                    line.setStrokeWidth(10);
+                    line.setShape_id(s.getShape_id());
+                    components.add(line);
+                    modelAction.getChildren().add(line);
+                    break;
+                case END_TYPE:
+                    DoubleProperty ellX = new SimpleDoubleProperty(s.getLayoutX());
+                    DoubleProperty ellY = new SimpleDoubleProperty(s.getLayoutY());
+                    EndCircleCom endCircleCom = new EndCircleCom(ellX, ellY, 20, modelAction);
+                    endCircleCom.setShape_id(s.getShape_id());
+                    endCircleCom.attr.setText(s.getAttr());
+                    components.add(endCircleCom);
+                    modelAction.getChildren().add(endCircleCom);
+                    modelAction.getChildren().add(endCircleCom.attr);
+                    break;
+            }
+        }
+
+        LineDao lineDao = new LineDaoImpl();
+        List<Line> lines = lineDao.selectByClauseId(clause.getClause_id());
+        Iterator<Line> lineIterator = lines.iterator();
+        while (lineIterator.hasNext()) {
+            Line line = lineIterator.next();
+            boolean startFlag = false;
+            boolean endFlag = false;
+            DoubleProperty sx = new SimpleDoubleProperty(0);
+            DoubleProperty sy = new SimpleDoubleProperty(0);
+            DoubleProperty ex = new SimpleDoubleProperty(0);
+            DoubleProperty ey = new SimpleDoubleProperty(0);
+            LineCom lineCom = new LineCom(sx, sy, ex, ey, modelAction);
+            for (int i = 0; i < components.size(); i++) {
+                BaseCom baseCom = components.get(i);
+                if (baseCom instanceof CircleCom) {
+                    if (((CircleCom) baseCom).getShape_id() == line.getStart_id()) {
+                        Center center = new Center((CircleCom) baseCom);
+                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty());
+                        startFlag = true;
+                    }
+                    if (((CircleCom) baseCom).getShape_id() == line.getEnd_id()) {
+                        Center center = new Center((CircleCom) baseCom);
+                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty());
+                        endFlag = true;
+                    }
+                } else if (baseCom instanceof EllipseCom) {
+                    Center center = new Center((EllipseCom)baseCom);
+                    if (((EllipseCom)baseCom).getShape_id() == line.getStart_id()) {
+                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty());
+                        startFlag = true;
+                    }
+                    if (((EllipseCom)baseCom).getShape_id() == line.getEnd_id()) {
+                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty());
+                        endFlag = true;
+                    }
+                } else if (baseCom instanceof PolygonCom) {
+
+                } else if (baseCom instanceof SynchCom) {
+                    Center center = new Center((SynchCom) baseCom);
+                    if (((SynchCom)baseCom).getShape_id() == line.getStart_id()) {
+                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty());
+                        startFlag = true;
+                    }
+                    if (((SynchCom)baseCom).getShape_id() == line.getEnd_id()) {
+                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty());
+                        endFlag = true;
+                    }
+                }
+            }
+            if (startFlag && endFlag) {
+                modelAction.getChildren().add(lineCom);
+            }
+        }
 
         GridPane.setHalignment(projectname, HPos.RIGHT);
         GridPane.setHalignment(modelInfo, HPos.RIGHT);

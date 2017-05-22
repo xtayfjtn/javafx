@@ -20,4 +20,6 @@ public interface ShapeDao {
     public int countAll();
 
     public Shape find(int shape_id);
+
+    public List<Shape> selectShapesByClauseId(int clause_id);
 }

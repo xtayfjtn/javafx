@@ -95,7 +95,8 @@ public class Main extends Application {
 //        }
 //        以下测试Shape连接数据库;
 //        ShapeDao shapeDao = new ShapeDaoImpl();
-//        List<Shape> shapes = shapeDao.selectAll();
+//        List<Shape> shapes = shapeDao.selectShapesByClauseId(3);
+//
 //        Iterator<Shape> iterator = shapes.iterator();
 //        while (iterator.hasNext()) {
 //            Shape s = iterator.next();

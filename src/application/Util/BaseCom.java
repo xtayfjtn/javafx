@@ -5,4 +5,5 @@ package application.Util;
  */
 public interface BaseCom {
     public void delete();
+
 }

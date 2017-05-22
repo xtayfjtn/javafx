@@ -6,6 +6,7 @@ import application.dao.ShapeDao;
 import application.model.Line;
 import application.model.Parameter;
 import application.model.Shape;
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -96,5 +97,19 @@ public class ShapeDaoImpl implements ShapeDao{
         session.commit();
         session.close();
         return shape;
+    }
+
+    @Override
+    public List<Shape> selectShapesByClauseId(int clause_id) {
+        SqlSession session = SystemUtil.openAndGetSession();
+        List<Shape> shapes = null;
+        try {
+            shapes = session.selectList("application.mapper.ShapeDaoMapper.selectShapesByClauseId", clause_id);
+        } catch (Exception e) {
+            Loger.loge("Error when selecShapeByClauseId");
+        }
+        session.commit();
+        session.close();
+        return shapes;
     }
 }

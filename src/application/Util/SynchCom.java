@@ -15,9 +15,10 @@ import javafx.scene.shape.Line;
 public class SynchCom extends Line implements BaseCom{
 
     //主布局宽度
-    private double pWidth;
-    private double pHeight;
+//    private double pWidth;
+//    private double pHeight;
     private DrawPane parentPane;
+    private int shape_id;
     //控件宽度
     private double mWidth;
 
@@ -30,8 +31,9 @@ public class SynchCom extends Line implements BaseCom{
     public SynchCom(double startX, double startY, double endX, double endY, DrawPane pane) {
         super(startX, startY, endX, endY);
         parentPane = pane;
-        pWidth = pane.getWidth();
-        pHeight = pane.getHeight();
+        setStrokeWidth(10);
+//        pWidth = pane.getWidth();
+//        pHeight = pane.getHeight();
         mWidth = Math.abs(endX - startX) / 2;
         centerX = (startX + endX) / 2;
         centerY = (startY + endY) / 2;
@@ -75,18 +77,18 @@ public class SynchCom extends Line implements BaseCom{
                 mStartx = 0;
                 mEndx = 2 * mWidth;
             }
-            if (mEndx > pWidth) {
-                mStartx = pWidth - 2 * mWidth;
-                mEndx = pWidth;
+            if (mEndx > parentPane.getWidth()) {
+                mStartx = parentPane.getWidth()- 2 * mWidth;
+                mEndx = parentPane.getWidth();
             }
 
             if (mStarty < 0) {
                 mStarty = 0;
                 mEndy = 0;
             }
-            if (mStarty > pHeight) {
-                mEndy = pHeight;
-                mStarty = pHeight;
+            if (mStarty > parentPane.getHeight()) {
+                mEndy = parentPane.getHeight();
+                mStarty = parentPane.getHeight();
             }
 
             setStartX(mStartx);
@@ -107,5 +109,13 @@ public class SynchCom extends Line implements BaseCom{
     @Override
     public void delete() {
         parentPane.getChildren().remove(this);
+    }
+
+    public int getShape_id() {
+        return shape_id;
+    }
+
+    public void setShape_id(int shape_id) {
+        this.shape_id = shape_id;
     }
 }

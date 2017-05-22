@@ -86,16 +86,30 @@ public class LineDaoImpl implements LineDao {
     }
 
     @Override
-    public Line find(int lineID) {
+    public Line find(int line_id) {
         SqlSession session = SystemUtil.openAndGetSession();
         Line line = null;
         try {
-            line = session.selectOne("application.mapper.LineDaoMapper.find", lineID);
+            line = session.selectOne("application.mapper.LineDaoMapper.find", line_id);
         } catch (Exception e) {
             Loger.loge("Error when find line");
         }
         session.commit();
         session.close();
         return line;
+    }
+
+    @Override
+    public List<Line> selectByClauseId(int clause_id) {
+        SqlSession session = SystemUtil.openAndGetSession();
+        List<Line> lines = null;
+        try {
+            lines = session.selectList("application.mapper.LineDaoMapper.selectByClauseId", clause_id);
+        } catch (Exception e) {
+            Loger.loge("Error when find Line");
+        }
+        session.commit();
+        session.close();
+        return lines;
     }
 }

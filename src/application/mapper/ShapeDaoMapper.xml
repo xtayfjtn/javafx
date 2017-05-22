@@ -24,4 +24,8 @@
     <select id="find" parameterType="int" resultType="application.model.Shape">
         select * from shape where shape_id=#{shape_id}
     </select>
+
+    <select id="selectShapesByClauseId" parameterType="int" resultType="application.model.Shape">
+        SELECT * FROM shape WHERE clause_id = #{clause_id}
+    </select>
 </mapper>

@@ -12,6 +12,10 @@ import javafx.scene.shape.StrokeLineCap;
  */
 public class LineCom extends Line implements BaseCom {
     private DrawPane parentPane;
+    public LineCom() {
+        super();
+        addEvent();
+    }
     public LineCom(DoubleProperty startX, DoubleProperty startY, DoubleProperty endX, DoubleProperty endY, DrawPane pane) {
         super(startX.get(), startY.get(), endX.get(), endY.get());
         addEvent();

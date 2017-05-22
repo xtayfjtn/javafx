@@ -52,7 +52,7 @@ public class DrawPane extends Pane {
             switch (type) {
                 case 1:
                     if (eventX > circleR && eventX < width - circleR && eventY > circleR && eventY < height - circleR) {
-                        drawStart(circleX, circleY, circleR, Color.BLACK);
+                        drawStart(circleX, circleY, circleR);
                     }
                     break;
                 case 2:
@@ -110,6 +110,27 @@ public class DrawPane extends Pane {
         getChildren().add(line);
     }
 
+    //画出开始控件；
+    private void drawStart(DoubleProperty x, DoubleProperty y, double radius) {
+        if (isInComponent(x.get(), y.get())) {
+            return;
+        }
+        CircleCom start = new CircleCom(x, y, radius, this);
+        getChildren().add(start);
+        getChildren().add(start.attr);
+    }
+
+    //画出顺序控件；
+    private void drawEllipse(double x, double y, double radiusX, double radiusY) {
+        if (isInComponent(x, y)) {
+            return;
+        }
+        EllipseCom a = new EllipseCom(x, y, radiusX, radiusY, this);
+        getChildren().add(a);
+        getChildren().add(a.attr);
+
+    }
+
     //画出分支；
     private void drawBranch(double eventX, double eventY) {
         if (isInComponent(eventX, eventY)) {
@@ -129,53 +150,21 @@ public class DrawPane extends Pane {
         getChildren().add(text);
     }
 
-    //画出顺序控件；
-    private void drawEllipse(double x, double y, double radiusX, double radiusY) {
-        if (isInComponent(x, y)) {
-            return;
-        }
-        Label text = new Label("Activity");
-        EllipseCom a = new EllipseCom(x, y, radiusX, radiusY, this, text);
-        a.setFill(Color.BISQUE);
-        a.setStroke(Color.BLACK);
-        getChildren().add(a);
-        getChildren().add(text);
-
-    }
-
-    //画出开始控件；
-    private void drawStart(DoubleProperty x, DoubleProperty y, double radius, Paint fill) {
-        if (isInComponent(x.get(), y.get())) {
-            return;
-        }
-        Label text = new Label("开始");//控件下方标签
-        CircleCom start = new CircleCom(Color.PALEGREEN, x, y, radius, this, text);
-        getChildren().add(text);
-        getChildren().add(start);
-    }
-
     //画同步的控件；
     private void drawSynch(double x, double y) {
         if (isInComponent(x, y)) {
             return;
         }
         SynchCom line = new SynchCom(x - synchR - 1, y, x + synchR - 1, y, this);
-        line.setStrokeWidth(10);
         getChildren().add(line);
     }
 
     //画结束节点。
     private void drawEnd(DoubleProperty x, DoubleProperty y, double radius) {
-        //以下是正式代码，以上是调试代码
         if (isInComponent(x.get(), y.get())) {
             return;
         }
-        EndCircleCom ecc = new EndCircleCom(Color.WHITE, x, y, radius, this);
-//        RadialGradient gradient = new RadialGradient(0, 1, x.get(), y.get(), 20, false, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(.8, Color.BLACK), new Stop(.8, Color.WHITE), new Stop(1, Color.WHITE));
-//        ecc.setFill(gradient);
-        ecc.setStroke(Color.BLACK);
-        ecc.setStrokeWidth(10);
-//        ecc.setFill(Co);
+        EndCircleCom ecc = new EndCircleCom(x, y, radius, this);
         getChildren().add(ecc);
     }
 

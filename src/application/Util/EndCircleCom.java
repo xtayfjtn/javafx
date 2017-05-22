@@ -12,11 +12,11 @@ import javafx.scene.shape.Circle;
  * Created by ZQ on 2017/4/19.
  */
 public class EndCircleCom extends CircleCom implements BaseCom {
-    public EndCircleCom(Color color, DoubleProperty x, DoubleProperty y, double radius, DrawPane pane) {
-        super(color, x, y, radius, pane);
-        setStrokeWidth(5);
+    public EndCircleCom(DoubleProperty x, DoubleProperty y, double radius, DrawPane pane) {
+        super(x, y, radius, pane);
+        setStrokeWidth(10);
         setStroke(Color.BLACK);
-        setFill(color);
+        setFill(Color.WHITE);
     }
 
     @Override
@@ -38,15 +38,15 @@ public class EndCircleCom extends CircleCom implements BaseCom {
                 mx = mradius;
             }
 
-            if (mx > pWidth - mradius) {
-                mx = pWidth - mradius;
+            if (mx > parentPane.getWidth() - mradius) {
+                mx = parentPane.getWidth() - mradius;
             }
 
             if (my < mradius) {
                 my = mradius;
             }
-            if (my > pHeight - mradius) {
-                my = pHeight - mradius;
+            if (my > parentPane.getHeight() - mradius) {
+                my = parentPane.getHeight() - mradius;
             }
 //            RadialGradient gradient = new RadialGradient(0, .5, mx, my, 20, false, CycleMethod.NO_CYCLE, new Stop(0, Color.BLACK), new Stop(.8, Color.BLACK), new Stop(.8, Color.WHITE), new Stop(1, Color.WHITE));
 //            setFill(gradient);

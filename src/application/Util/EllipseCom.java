@@ -4,6 +4,7 @@ import application.controller.ComponentController;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 
@@ -13,8 +14,9 @@ import javafx.stage.Stage;
 public class EllipseCom extends Ellipse implements BaseCom {
     private double mradiusX;
     private double mradiusY;
-    private double pWidth;
-    private double pHeight;
+    private int shape_id;
+//    private double pWidth;
+//    private double pHeight;
     private DrawPane parentPane;
 
     //双击事件所有变量。
@@ -29,35 +31,44 @@ public class EllipseCom extends Ellipse implements BaseCom {
 
     public EllipseCom(double radiusX, double radiusY, DrawPane pane) {
         super(radiusX, radiusY);
-        pWidth = pane.getWidth();
-        pHeight = pane.getHeight();
+//        pWidth = pane.getWidth();
+//        pHeight = pane.getHeight();
         parentPane = pane;
         mradiusX = radiusX;
         mradiusY = radiusY;
+
         addEvent();
     }
 
     public EllipseCom(double centerX, double centerY, double radiusX, double radiusY, DrawPane pane) {
         super(centerX, centerY, radiusX, radiusY);
-        pWidth = pane.getWidth();
-        pHeight = pane.getHeight();
+        setFill(Color.BISQUE);
+        setStroke(Color.BLACK);
+//        pWidth = pane.getWidth();
+//        pHeight = pane.getHeight();
         mradiusX = radiusX;
         mradiusY = radiusY;
         parentPane = pane;
+        attr = new Label("开始");
+        attr.layoutXProperty().bind(centerXProperty().add(-20));
+        attr.layoutYProperty().bind(centerYProperty());
+//        pane.getChildren().add(attr);
         addEvent();
     }
-    public EllipseCom(double centerX, double centerY, double radiusX, double radiusY, DrawPane pane, Label text) {
-        super(centerX, centerY, radiusX, radiusY);
-        attr = text;
-        text.layoutXProperty().bind(centerXProperty().add(-20));
-        text.layoutYProperty().bind(centerYProperty());
-        pWidth = pane.getWidth();
-        pHeight = pane.getHeight();
-        mradiusX = radiusX;
-        mradiusY = radiusY;
-        parentPane = pane;
-        addEvent();
-    }
+//    public EllipseCom(double centerX, double centerY, double radiusX, double radiusY, DrawPane pane, Label text) {
+//        super(centerX, centerY, radiusX, radiusY);
+//        attr = text;
+//        setFill(Color.BISQUE);
+//        setStroke(Color.BLACK);
+//        text.layoutXProperty().bind(centerXProperty().add(-20));
+//        text.layoutYProperty().bind(centerYProperty());
+////        pWidth = pane.getWidth();
+////        pHeight = pane.getHeight();
+//        mradiusX = radiusX;
+//        mradiusY = radiusY;
+//        parentPane = pane;
+//        addEvent();
+//    }
 
     private void addEvent() {
         final Delta dragDelta = new Delta();
@@ -115,16 +126,16 @@ public class EllipseCom extends Ellipse implements BaseCom {
             if (mx < mradiusX) {
                 mx = mradiusX;
             }
-            if (mx > pWidth - mradiusX) {
-                mx = pWidth - mradiusX;
+            if (mx > parentPane.getWidth() - mradiusX) {
+                mx = parentPane.getWidth() - mradiusX;
             }
 
             if (my < mradiusY) {
                 my = mradiusY;
             }
 
-            if (my > pHeight - mradiusY) {
-                my = pHeight - mradiusY;
+            if (my > parentPane.getHeight() - mradiusY) {
+                my = parentPane.getHeight() - mradiusY;
             }
 
             setCenterX(mx);
@@ -141,5 +152,13 @@ public class EllipseCom extends Ellipse implements BaseCom {
     private class Delta {
         public double x;
         public double y;
+    }
+
+    public int getShape_id() {
+        return shape_id;
+    }
+
+    public void setShape_id(int shape_id) {
+        this.shape_id = shape_id;
     }
 }

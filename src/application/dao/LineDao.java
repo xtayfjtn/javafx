@@ -18,5 +18,7 @@ public interface LineDao {
 
     public int countAll();
 
-    public Line find(int lineID);
+    public Line find(int line_id);
+
+    public List<Line> selectByClauseId(int clause_id);
 }

@@ -24,4 +24,8 @@
     <select id="find" parameterType="int" resultType="application.model.Line">
         select * from line where line_id=#{line_id}
     </select>
+    
+    <select id="selectByClauseId" parameterType="int" resultType="application.model.Line">
+        SELECT * FROM line WHERE clause_id = #{clause_id}
+    </select>
 </mapper>
