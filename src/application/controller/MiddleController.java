@@ -18,6 +18,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -132,9 +133,8 @@ public class MiddleController implements Initializable {
 
         TextArea infoText = new TextArea(clause.getDescription());
         DrawPane modelAction = new DrawPane();
-        modelAction.setPrefWidth(505);
-        modelAction.setPrefHeight(300);
         modelAction.getStyleClass().add("drawpane");
+        modelAction.setClause_id(clause.getClause_id());
         Button confirmbtn = new Button("确定");
         confirmbtn.setOnAction(event -> {
             mMiddle.getChildren().clear();
@@ -174,7 +174,12 @@ public class MiddleController implements Initializable {
                     modelAction.getChildren().add(ellipseCom.attr);
                     break;
                 case BRANCH_TYPE:
-                    PolygonCom polygonCom = new PolygonCom();
+                    PolygonCom polygonCom = new PolygonCom(s.getLayoutX(), s.getLayoutY(), modelAction);
+                    polygonCom.setShape_id(s.getShape_id());
+                    polygonCom.attr.setText(s.getAttr());
+                    components.add(polygonCom);
+                    modelAction.getChildren().add(polygonCom);
+                    modelAction.getChildren().add(polygonCom.attr);
                     break;
                 case SYNCH_TYPE:
                     SynchCom line = new SynchCom(s.getLayoutX() - 40 - 1, s.getLayoutY(), s.getLayoutX() + 40 - 1, s.getLayoutY(), modelAction);
@@ -213,39 +218,48 @@ public class MiddleController implements Initializable {
                 if (baseCom instanceof CircleCom) {
                     if (((CircleCom) baseCom).getShape_id() == line.getStart_id()) {
                         Center center = new Center((CircleCom) baseCom);
-                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty());
+                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty(), (Node) baseCom);
                         startFlag = true;
                     }
                     if (((CircleCom) baseCom).getShape_id() == line.getEnd_id()) {
                         Center center = new Center((CircleCom) baseCom);
-                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty());
+                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty(), (Node) baseCom);
                         endFlag = true;
                     }
                 } else if (baseCom instanceof EllipseCom) {
                     Center center = new Center((EllipseCom)baseCom);
                     if (((EllipseCom)baseCom).getShape_id() == line.getStart_id()) {
-                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty());
+                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty(), (Node) baseCom);
                         startFlag = true;
                     }
                     if (((EllipseCom)baseCom).getShape_id() == line.getEnd_id()) {
-                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty());
+                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty(), (Node) baseCom);
                         endFlag = true;
                     }
                 } else if (baseCom instanceof PolygonCom) {
-
+                    Center center = new Center((PolygonCom)baseCom);
+                    if (((PolygonCom)baseCom).getShape_id() == line.getStart_id()) {
+                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty(), (Node) baseCom);
+                        startFlag = true;
+                    }
+                    if (((PolygonCom)baseCom).getShape_id() == line.getEnd_id()) {
+                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty(), (Node) baseCom);
+                        endFlag = true;
+                    }
                 } else if (baseCom instanceof SynchCom) {
                     Center center = new Center((SynchCom) baseCom);
                     if (((SynchCom)baseCom).getShape_id() == line.getStart_id()) {
-                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty());
+                        lineCom.bindStartProperties(center.centerXProperty(), center.centerYProperty(), (Node) baseCom);
                         startFlag = true;
                     }
                     if (((SynchCom)baseCom).getShape_id() == line.getEnd_id()) {
-                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty());
+                        lineCom.bindEndProperties(center.centerXProperty(), center.centerYProperty(), (Node) baseCom);
                         endFlag = true;
                     }
                 }
             }
             if (startFlag && endFlag) {
+                lineCom.setLine_id(line.getLine_id());
                 modelAction.getChildren().add(lineCom);
             }
         }
@@ -315,9 +329,6 @@ public class MiddleController implements Initializable {
         Button confirmbtn = new Button("确定");
         confirmbtn.setOnAction(event -> {
             mainController.saveFunc(textFieldTreeCell,funcNametxt.getText(), funcDisplaytxt.getText(), inputtxt.getText(), outputtxt.getText(), funcAction);
-//            textFieldTreeCell.funcInfo = funcDisplaytxt.getText();
-//            textFieldTreeCell.funcInput = inputtxt.getText();
-//            textFieldTreeCell.funcOutput = outputtxt.getText();
             mMiddle.getChildren().clear();
             mainController.hideComponent();
         });

@@ -21,4 +21,6 @@ public interface LineDao {
     public Line find(int line_id);
 
     public List<Line> selectByClauseId(int clause_id);
+
+    public void insertUpdate(Line line);
 }

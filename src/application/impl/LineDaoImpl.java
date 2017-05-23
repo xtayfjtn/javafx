@@ -112,4 +112,16 @@ public class LineDaoImpl implements LineDao {
         session.close();
         return lines;
     }
+
+    @Override
+    public void insertUpdate(Line line) {
+        SqlSession session = SystemUtil.openAndGetSession();
+        try {
+            session.selectOne("application.mapper.LineDaoMapper.insertUpdate", line);
+        } catch (Exception e) {
+            Loger.loge("Error when insertUpdate line");
+        }
+        session.commit();
+        session.close();
+    }
 }

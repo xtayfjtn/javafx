@@ -22,4 +22,6 @@ public interface ShapeDao {
     public Shape find(int shape_id);
 
     public List<Shape> selectShapesByClauseId(int clause_id);
+
+    public int getMaxId();
 }

@@ -1,6 +1,8 @@
 package application.Util;
 
 import application.controller.ComponentController;
+import application.dao.ShapeDao;
+import application.impl.ShapeDaoImpl;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -158,10 +160,12 @@ public class CircleCom extends Circle implements BaseCom{
     }
 
     public void delete() {
-        System.out.println("wodetian");
+//        System.out.println("wodetian");
         parentPane.getChildren().remove(this);
         parentPane.getChildren().remove(attr);
-        this.setVisible(false);
+        ShapeDao shapeDao = new ShapeDaoImpl();
+        shapeDao.delete(shape_id);
+//        this.setVisible(false);
     }
 
 

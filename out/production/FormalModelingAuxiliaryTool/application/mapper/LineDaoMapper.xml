@@ -10,7 +10,7 @@
     </select>
 
     <insert id="insert" parameterType="application.model.Line">
-        insert into line(start_id, end_id) values(#{start_id}, #{end_id})
+        insert into line(start_id, end_id, clause_id) values(#{start_id}, #{end_id}, #{clause_id})
     </insert>
 
     <update id="update" parameterType="application.model.Line">
@@ -27,5 +27,9 @@
     
     <select id="selectByClauseId" parameterType="int" resultType="application.model.Line">
         SELECT * FROM line WHERE clause_id = #{clause_id}
+    </select>
+
+    <select id="insertUpdate" parameterType="application.model.Line">
+        INSERT INTO line(line_id, start_id, end_id, clause_id) VALUES (#{line_id}, #{start_id}, #{end_id}, #{clause_id}) ON DUPLICATE KEY UPDATE start_id = #{start_id}, end_id = #{end_id}, clause_id = #{clause_id}
     </select>
 </mapper>

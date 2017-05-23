@@ -7,12 +7,11 @@ import com.sun.javafx.geom.transform.BaseTransform;
 import com.sun.javafx.scene.DirtyBits;
 import com.sun.javafx.sg.prism.NGShape;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.DoublePropertyBase;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -26,9 +25,15 @@ import javafx.stage.Stage;
  * Created by ZQ on 2017/4/15.
  */
 public class PolygonCom extends Polygon implements BaseCom {
+    public static final double BRANCH_X = 40.0;
+    public static final double BRANCH_Y = 20.0;
+
+    final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+
+    private int shape_id;
     //pane的宽度和高度
-    private double pWidth;
-    private double pHeight;
+//    private double pWidth;
+//    private double pHeight;
 
     private double xOffset;
     private double yOffset;
@@ -52,12 +57,50 @@ public class PolygonCom extends Polygon implements BaseCom {
     public PolygonCom() {
     }
 
+    public PolygonCom(double centerX, double centerY, DrawPane pane) {
+//        double leftX = centerX - BRANCH_X;
+//        double leftY = centerY;
+//        double topX = centerX;
+//        double topY = centerY - BRANCH_Y;
+//        double rightX = centerX + BRANCH_X;
+//        double rightY = centerY;
+//        double bottomX = centerX;
+//        double bottomY = centerY + BRANCH_Y;
+        super(centerX - BRANCH_X, centerY, centerX, centerY - BRANCH_Y, centerX + BRANCH_X, centerY, centerX, centerY + BRANCH_Y);
+        setCenter();
+        bindCenter();
+        parentPane = pane;
+        setFill(Color.WHITE);
+        setStroke(Color.BLACK);
+        int len = getPoints().size();
+        double sumX = 0;
+        double sumY = 0;
+        for (int i = 0; i < len; i++) {
+            if (i % 2 == 0) {
+                sumX += getPoints().get(i);
+            } else {
+                sumY += getPoints().get(i);
+            }
+        }
+
+//        setCenterX(sumX * 2 / len);
+//        setCenterY(sumY * 2 / len);
+
+        mWidth = Math.abs(getPoints().get(0) - getCenterX().get());
+        mHeight = Math.abs(getPoints().get(1) - getCenterY().get());
+        addEvent();
+        attr = new Label("选择");
+        attr.layoutXProperty().bind(getCenterX());
+        attr.layoutYProperty().bind(getCenterY());
+
+    }
+
     public PolygonCom(DrawPane pane, double... points) {
         super(points);
         setCenter();
         bindCenter();
-        pWidth = pane.getWidth();
-        pHeight = pane.getHeight();
+//        pWidth = pane.getWidth();
+//        pHeight = pane.getHeight();
         parentPane = pane;
         int len = points.length;
         double sumX = 0;
@@ -84,8 +127,8 @@ public class PolygonCom extends Polygon implements BaseCom {
         super(points);
         setCenter();
         bindCenter();
-        pWidth = pane.getWidth();
-        pHeight = pane.getHeight();
+//        pWidth = pane.getWidth();
+//        pHeight = pane.getHeight();
         attr = text;
         attr.layoutXProperty().bind(getCenterX());
         attr.layoutYProperty().bind(getCenterY());
@@ -151,6 +194,7 @@ public class PolygonCom extends Polygon implements BaseCom {
                 stage.show();
                 System.out.println("db is true");
             } else {
+//                mousePosition.set(new Point2D(e.getSceneX(), e.getSceneY()));
                 xOffset = e.getSceneX();
                 yOffset = e.getSceneY();
                 if (ComponentController.type == 6) {
@@ -169,6 +213,14 @@ public class PolygonCom extends Polygon implements BaseCom {
 
         });
 
+//        改进但有缺陷版拖拽反馈
+//        addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent event) -> {
+//            double deltaX = event.getSceneX() - mousePosition.get().getX();
+//            double deltaY = event.getSceneY() - mousePosition.get().getY();
+//            setLayoutX(getLayoutX()+deltaX);
+//            setLayoutY(getLayoutY()+deltaY);
+//            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+//        });
         addEventHandler(MouseEvent.MOUSE_DRAGGED, (MouseEvent e) -> {
 //            e.consume();
             if (ComponentController.type == 6) {
@@ -181,16 +233,16 @@ public class PolygonCom extends Polygon implements BaseCom {
             if (relativeX < mWidth) {
                 finalX = mWidth - getCenterX().get();
             }
-            if (relativeX > pWidth - mWidth) {
-                finalX = pWidth - mWidth - getCenterX().get();
+            if (relativeX > parentPane.getWidth() - mWidth) {
+                finalX = parentPane.getWidth() - mWidth - getCenterX().get();
             }
 
             if (relativeY < mHeight) {
                 finalY = mHeight - getCenterY().get();
             }
 
-            if (relativeY > pHeight - mHeight) {
-                finalY = pHeight - mHeight - getCenterY().get();
+            if (relativeY > parentPane.getHeight() - mHeight) {
+                finalY = parentPane.getHeight() - mHeight - getCenterY().get();
             }
             setLayoutX(finalX);
             setLayoutY(finalY);
@@ -198,6 +250,7 @@ public class PolygonCom extends Polygon implements BaseCom {
         });
 
         addEventHandler(MouseEvent.MOUSE_RELEASED, (MouseEvent e) -> {
+            setCenter();
         });
     }
 
@@ -214,5 +267,13 @@ public class PolygonCom extends Polygon implements BaseCom {
     public void delete() {
         parentPane.getChildren().remove(this);
         parentPane.getChildren().remove(attr);
+    }
+
+    public int getShape_id() {
+        return shape_id;
+    }
+
+    public void setShape_id(int shape_id) {
+        this.shape_id = shape_id;
     }
 }

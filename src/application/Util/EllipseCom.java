@@ -1,6 +1,8 @@
 package application.Util;
 
 import application.controller.ComponentController;
+import application.dao.ShapeDao;
+import application.impl.ShapeDaoImpl;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -147,6 +149,8 @@ public class EllipseCom extends Ellipse implements BaseCom {
     public void delete() {
         parentPane.getChildren().remove(this);
         parentPane.getChildren().remove(attr);
+        ShapeDao shapeDao = new ShapeDaoImpl();
+        shapeDao.delete(shape_id);
     }
 
     private class Delta {

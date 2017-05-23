@@ -28,4 +28,8 @@
     <select id="selectShapesByClauseId" parameterType="int" resultType="application.model.Shape">
         SELECT * FROM shape WHERE clause_id = #{clause_id}
     </select>
+
+    <select id="getMaxId" resultType="int">
+        SELECT MAX(shape_id) FROM shape;
+    </select>
 </mapper>

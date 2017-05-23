@@ -7,8 +7,9 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class Line {
     private int line_id;
-    private int start_id = 1;
-    private int end_id = 2;
+    private int start_id = 0;
+    private int end_id = 0;
+    private int clause_id = 0;
 
     @XmlElement
     public int getLine_id() {
@@ -40,12 +41,23 @@ public class Line {
         this.end_id = end_id;
     }
 
+    @XmlElement
+    public int getClause_id() {
+        return clause_id;
+    }
+
+    @XmlElement
+    public void setClause_id(int clause_id) {
+        this.clause_id = clause_id;
+    }
+
     @Override
     public String toString() {
         return "Line{" +
                 "line_id=" + line_id +
                 ", start_id=" + start_id +
                 ", end_id=" + end_id +
+                ", clause_id=" + clause_id +
                 '}';
     }
 }

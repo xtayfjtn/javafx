@@ -1,12 +1,16 @@
 package application.controller;
 
 import application.Util.DrawPane;
+import application.Util.LineCom;
 import application.Util.TextFieldTreeCellImpl;
 import application.dao.ClauseDao;
+import application.dao.LineDao;
 import application.dao.ParameterDao;
 import application.impl.ClauseDaoImpl;
+import application.impl.LineDaoImpl;
 import application.impl.ParameterDaoImpl;
 import application.model.Clause;
+import application.model.Line;
 import application.model.Parameter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -99,10 +103,25 @@ public class MainController implements Initializable {
     public void saveModel(TextFieldTreeCellImpl textFieldTreeCell, String name, String info, DrawPane modelAction) {
         if (textFieldTreeCell.getItem() instanceof Clause) {
             Clause clause = (Clause) textFieldTreeCell.getItem();
+            clause.setcType("模块");
             clause.setClauseName(name);
             clause.setDescription(info);
             ClauseDao clauseDao = new ClauseDaoImpl();
             clauseDao.update(clause);
+
+            int shapeNum = modelAction.getChildren().size();
+            for (int i = 0; i < shapeNum; i++) {
+                if (modelAction.getChildren().get(i) instanceof LineCom) {
+                    LineCom lineCom = (LineCom) modelAction.getChildren().get(i);
+                    LineDao lineDao = new LineDaoImpl();
+                    Line line = new Line();
+                    line.setStart_id(lineCom.getStart_id());
+                    line.setEnd_id(lineCom.getEnd_id());
+                    line.setClause_id(modelAction.getClause_id());
+                    line.setLine_id(lineCom.getLine_id());
+                    lineDao.insertUpdate(line);
+                }
+            }
         }
     }
 
@@ -125,6 +144,22 @@ public class MainController implements Initializable {
 
             ClauseDao clauseDao = new ClauseDaoImpl();
             clauseDao.update(clause);
+
+            int shapeNum = funcAction.getChildren().size();
+            for (int i = 0; i < shapeNum; i++) {
+                if (funcAction.getChildren().get(i) instanceof LineCom) {
+                    LineCom lineCom = (LineCom) funcAction.getChildren().get(i);
+                    LineDao lineDao = new LineDaoImpl();
+                    Line line = new Line();
+                    line.setStart_id(lineCom.getStart_id());
+                    line.setEnd_id(lineCom.getEnd_id());
+                    line.setClause_id(funcAction.getClause_id());
+                    line.setLine_id(lineCom.getLine_id());
+                    lineDao.insertUpdate(line);
+                }
+            }
         }
     }
+
+//    public void insertLines()
 }

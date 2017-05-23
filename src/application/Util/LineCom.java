@@ -1,6 +1,7 @@
 package application.Util;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -12,6 +13,9 @@ import javafx.scene.shape.StrokeLineCap;
  */
 public class LineCom extends Line implements BaseCom {
     private DrawPane parentPane;
+    private int start_id = 0;
+    private int end_id = 0;
+    private int line_id = 0;
     public LineCom() {
         super();
         addEvent();
@@ -39,18 +43,73 @@ public class LineCom extends Line implements BaseCom {
         });
     }
 
-    public void bindStartProperties(DoubleProperty startX, DoubleProperty startY) {
+    public void bindStartProperties(DoubleProperty startX, DoubleProperty startY, Node start) {
         startXProperty().bind(startX);
         startYProperty().bind(startY);
+//        System.out.println(start.getClass());
+        if (start instanceof CircleCom) {
+            start_id = ((CircleCom) start).getShape_id();
+        }
+        if (start instanceof EllipseCom) {
+            start_id = ((EllipseCom) start).getShape_id();
+        }
+        if (start instanceof PolygonCom) {
+            start_id = ((PolygonCom) start).getShape_id();
+        }
+        if (start instanceof SynchCom) {
+            start_id = ((SynchCom) start).getShape_id();
+        }
+        if (start instanceof EndCircleCom) {
+            start_id = ((EndCircleCom) start).getShape_id();
+        }
     }
 
-    public void bindEndProperties(DoubleProperty endX, DoubleProperty endY) {
+    public void bindEndProperties(DoubleProperty endX, DoubleProperty endY, Node end) {
         endXProperty().bind(endX);
         endYProperty().bind(endY);
+        if (end instanceof CircleCom) {
+            end_id = ((CircleCom) end).getShape_id();
+        }
+        if (end instanceof EllipseCom) {
+            end_id = ((EllipseCom) end).getShape_id();
+        }
+        if (end instanceof PolygonCom) {
+            end_id = ((PolygonCom) end).getShape_id();
+        }
+        if (end instanceof SynchCom) {
+            end_id = ((SynchCom) end).getShape_id();
+        }
+        if (end instanceof EndCircleCom) {
+            end_id = ((EndCircleCom) end).getShape_id();
+        }
     }
 
     @Override
     public void delete() {
         parentPane.getChildren().remove(this);
+    }
+
+    public int getStart_id() {
+        return start_id;
+    }
+
+    public void setStart_id(int start_id) {
+        this.start_id = start_id;
+    }
+
+    public int getEnd_id() {
+        return end_id;
+    }
+
+    public void setEnd_id(int end_id) {
+        this.end_id = end_id;
+    }
+
+    public int getLine_id() {
+        return line_id;
+    }
+
+    public void setLine_id(int line_id) {
+        this.line_id = line_id;
     }
 }

@@ -1,6 +1,9 @@
 package application.Util;
 
 import application.controller.ComponentController;
+import application.dao.ShapeDao;
+import application.impl.ShapeDaoImpl;
+import application.model.Shape;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
@@ -12,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
 
@@ -21,6 +23,12 @@ import javafx.scene.text.Text;
  */
 public class DrawPane extends Pane {
 
+    public static final int START_TYPE = 1;
+    public static final int ELLIPSE_TYPE = 2;
+    public static final int BRANCH_TYPE = 3;
+    public static final int SYNCH_TYPE = 4;
+    public static final int END_TYPE = 5;
+    private int clause_id = 0;
     private final double ellipseX = 40;
     private final double ellipseY = 20;
     private final double circleR = 15;
@@ -118,6 +126,15 @@ public class DrawPane extends Pane {
         CircleCom start = new CircleCom(x, y, radius, this);
         getChildren().add(start);
         getChildren().add(start.attr);
+        ShapeDao shapeDao = new ShapeDaoImpl();
+        Shape shape = new Shape();
+        shape.setClause_id(getClause_id());
+        shape.setLayoutX(x.get());
+        shape.setLayoutY(y.get());
+        shape.setAttr(start.attr.getText());
+        shape.setsType(START_TYPE);
+        shapeDao.insert(shape);
+        start.setShape_id(shapeDao.getMaxId());
     }
 
     //画出顺序控件；
@@ -128,6 +145,15 @@ public class DrawPane extends Pane {
         EllipseCom a = new EllipseCom(x, y, radiusX, radiusY, this);
         getChildren().add(a);
         getChildren().add(a.attr);
+        ShapeDao shapeDao = new ShapeDaoImpl();
+        Shape shape = new Shape();
+        shape.setClause_id(getClause_id());
+        shape.setLayoutX(x);
+        shape.setLayoutY(y);
+        shape.setAttr(a.attr.getText());
+        shape.setsType(ELLIPSE_TYPE);
+        shapeDao.insert(shape);
+        a.setShape_id(shapeDao.getMaxId());
 
     }
 
@@ -136,18 +162,19 @@ public class DrawPane extends Pane {
         if (isInComponent(eventX, eventY)) {
             return;
         }
-        Label text = new Label("guard?");
-        double leftX = eventX - 40;
-        double leftY = eventY;
-        double topX = eventX;
-        double topY = eventY - 20;
-        double rightX = eventX + 40;
-        double rightY = eventY;
-        double bottomX = eventX;
-        double bottomY = eventY + 20;
-        PolygonCom pc = new PolygonCom(text, this, leftX, leftY, topX, topY, rightX, rightY, bottomX, bottomY, leftX, leftY);
+        PolygonCom pc = new PolygonCom(eventX, eventY, this);
         getChildren().add(pc);
-        getChildren().add(text);
+        getChildren().add(pc.attr);
+
+        ShapeDao shapeDao = new ShapeDaoImpl();
+        Shape shape = new Shape();
+        shape.setClause_id(getClause_id());
+        shape.setLayoutX(eventX);
+        shape.setLayoutY(eventY);
+        shape.setAttr(pc.attr.getText());
+        shape.setsType(BRANCH_TYPE);
+        shapeDao.insert(shape);
+        pc.setShape_id(shapeDao.getMaxId());
     }
 
     //画同步的控件；
@@ -157,6 +184,15 @@ public class DrawPane extends Pane {
         }
         SynchCom line = new SynchCom(x - synchR - 1, y, x + synchR - 1, y, this);
         getChildren().add(line);
+
+        ShapeDao shapeDao = new ShapeDaoImpl();
+        Shape shape = new Shape();
+        shape.setClause_id(getClause_id());
+        shape.setLayoutX(x);
+        shape.setLayoutY(y);
+        shape.setsType(SYNCH_TYPE);
+        shapeDao.insert(shape);
+        line.setShape_id(shapeDao.getMaxId());
     }
 
     //画结束节点。
@@ -166,6 +202,16 @@ public class DrawPane extends Pane {
         }
         EndCircleCom ecc = new EndCircleCom(x, y, radius, this);
         getChildren().add(ecc);
+
+        ShapeDao shapeDao = new ShapeDaoImpl();
+        Shape shape = new Shape();
+        shape.setClause_id(getClause_id());
+        shape.setLayoutX(x.get());
+        shape.setLayoutY(y.get());
+        shape.setAttr(ecc.attr.getText());
+        shape.setsType(END_TYPE);
+        shapeDao.insert(shape);
+        ecc.setShape_id(shapeDao.getMaxId());
     }
 
     //判断点(x, y)是否在当前画面的组件上
@@ -193,12 +239,12 @@ public class DrawPane extends Pane {
                 if (isStart) {
                     Node start = getChildren().get(i);
                     Center startCenter = new Center(start);
-                    line.bindStartProperties(startCenter.centerXProperty(), startCenter.centerYProperty());
+                    line.bindStartProperties(startCenter.centerXProperty(), startCenter.centerYProperty(), start);
                 }
                 else {
                     Node end = getChildren().get(i);
                     Center endCenter = new Center(end);
-                    line.bindEndProperties(endCenter.centerXProperty(), endCenter.centerYProperty());
+                    line.bindEndProperties(endCenter.centerXProperty(), endCenter.centerYProperty(), end);
                 }
                 return true;
             }
@@ -218,5 +264,13 @@ public class DrawPane extends Pane {
 //            }
 //        }
 //        return false;
+    }
+
+    public int getClause_id() {
+        return clause_id;
+    }
+
+    public void setClause_id(int clause_id) {
+        this.clause_id = clause_id;
     }
 }

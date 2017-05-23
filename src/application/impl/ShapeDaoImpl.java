@@ -112,4 +112,18 @@ public class ShapeDaoImpl implements ShapeDao{
         session.close();
         return shapes;
     }
+
+    @Override
+    public int getMaxId() {
+        SqlSession session = SystemUtil.openAndGetSession();
+        int id = 0;
+        try {
+            id = session.selectOne("application.mapper.ShapeDaoMapper.getMaxId");
+        } catch (Exception e) {
+            Loger.loge("Error when getMaxId");
+        }
+        session.commit();
+        session.close();
+        return id;
+    }
 }
