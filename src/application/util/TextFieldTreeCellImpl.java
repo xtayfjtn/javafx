@@ -1,4 +1,4 @@
-package application.Util;
+package application.util;
 
 import application.controller.MainController;
 import application.model.Clause;

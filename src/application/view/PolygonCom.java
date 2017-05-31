@@ -1,12 +1,8 @@
-package application.Util;
+package application.view;
 
 import application.controller.ComponentController;
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.Ellipse2D;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.scene.DirtyBits;
-import com.sun.javafx.sg.prism.NGShape;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+import application.util.AttrStage;
+import application.util.CompContextMenu;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,9 +12,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 
 /**

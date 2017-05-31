@@ -1,10 +1,9 @@
 package application.impl;
 
-import application.Util.Loger;
-import application.Util.SystemUtil;
+import application.util.Loger;
+import application.util.SystemUtil;
 import application.dao.ClauseDao;
 import application.model.Clause;
-import application.model.Project;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;

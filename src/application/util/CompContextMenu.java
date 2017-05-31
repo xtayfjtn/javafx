@@ -1,5 +1,6 @@
-package application.Util;
+package application.util;
 
+import application.view.BaseCom;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;

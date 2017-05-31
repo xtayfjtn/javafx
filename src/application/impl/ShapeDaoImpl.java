@@ -1,12 +1,9 @@
 package application.impl;
 
-import application.Util.Loger;
-import application.Util.SystemUtil;
+import application.util.Loger;
+import application.util.SystemUtil;
 import application.dao.ShapeDao;
-import application.model.Line;
-import application.model.Parameter;
 import application.model.Shape;
-import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;

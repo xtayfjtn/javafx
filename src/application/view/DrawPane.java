@@ -1,21 +1,15 @@
-package application.Util;
+package application.view;
 
 import application.controller.ComponentController;
 import application.dao.ShapeDao;
 import application.impl.ShapeDaoImpl;
 import application.model.Shape;
+import application.util.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 
 
 /**

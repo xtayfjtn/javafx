@@ -1,7 +1,7 @@
 package application.impl;
 
-import application.Util.Loger;
-import application.Util.SystemUtil;
+import application.util.Loger;
+import application.util.SystemUtil;
 import application.dao.ProjectDao;
 import application.model.Project;
 import org.apache.ibatis.session.SqlSession;

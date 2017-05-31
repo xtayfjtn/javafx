@@ -1,21 +1,14 @@
 package application;
 
-import application.Util.SystemUtil;
-import application.dao.*;
-import application.impl.*;
-import application.model.*;
+import application.util.SystemUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import org.apache.ibatis.session.SqlSession;
-import sun.security.provider.SHA;
 
 import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 

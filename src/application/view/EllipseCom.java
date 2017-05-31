@@ -1,8 +1,10 @@
-package application.Util;
+package application.view;
 
 import application.controller.ComponentController;
 import application.dao.ShapeDao;
 import application.impl.ShapeDaoImpl;
+import application.util.AttrStage;
+import application.util.CompContextMenu;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;

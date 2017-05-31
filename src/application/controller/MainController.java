@@ -1,17 +1,14 @@
 package application.controller;
 
-import application.Util.DrawPane;
-import application.Util.LineCom;
-import application.Util.TextFieldTreeCellImpl;
+import application.view.DrawPane;
+import application.view.LineCom;
+import application.util.TextFieldTreeCellImpl;
 import application.dao.ClauseDao;
 import application.dao.LineDao;
-import application.dao.ParameterDao;
 import application.impl.ClauseDaoImpl;
 import application.impl.LineDaoImpl;
-import application.impl.ParameterDaoImpl;
 import application.model.Clause;
 import application.model.Line;
-import application.model.Parameter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -23,12 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private final Node rootIcon = new ImageView(
-            new Image(getClass().getResourceAsStream("folder.png"))
-    );
-    private final Node modelIcon = new ImageView(
-            new Image(getClass().getResourceAsStream("model.png"))
-    );
+
     @FXML
     public Label mLable;
     @FXML MenuController menuController;
@@ -125,23 +117,12 @@ public class MainController implements Initializable {
         }
     }
 
-    public void saveFunc(TextFieldTreeCellImpl textFieldTreeCell, String funcName, String description, String input, String output, DrawPane funcAction) {
+    public void saveFunc(TextFieldTreeCellImpl textFieldTreeCell, String name, String description, String input, String output, DrawPane funcAction) {
         if (textFieldTreeCell.getItem() instanceof Clause) {
             Clause clause = (Clause) textFieldTreeCell.getItem();
-            clause.setClauseName(funcName);
+            clause.setcType("功能点");
+            clause.setClauseName(name);
             clause.setDescription(description);
-            ParameterDao parameterDao = new ParameterDaoImpl();
-            Parameter inputParameter = parameterDao.getInputParameter(clause.getClause_id());
-            inputParameter.setParameterName(input);
-            inputParameter.setClause_id(clause.getClause_id());
-            parameterDao.insertUpdate(inputParameter);
-//            inputParameter.setParameter_id(parameterDao.getMaxId());
-
-            Parameter outParameter = parameterDao.getOutputParameter(clause.getClause_id());
-            outParameter.setParameterName(output);
-            outParameter.setClause_id(clause.getClause_id());
-            parameterDao.insertUpdate(outParameter);
-
             ClauseDao clauseDao = new ClauseDaoImpl();
             clauseDao.update(clause);
 
@@ -158,6 +139,37 @@ public class MainController implements Initializable {
                     lineDao.insertUpdate(line);
                 }
             }
+//            Clause clause = (Clause) textFieldTreeCell.getItem();
+//            clause.setClauseName(funcName);
+//            clause.setDescription(description);
+//            ParameterDao parameterDao = new ParameterDaoImpl();
+//            Parameter inputParameter = parameterDao.getInputParameter(clause.getClause_id());
+//            inputParameter.setParameterName(input);
+//            inputParameter.setClause_id(clause.getClause_id());
+//            parameterDao.insertUpdate(inputParameter);
+////            inputParameter.setParameter_id(parameterDao.getMaxId());
+//
+//            Parameter outParameter = parameterDao.getOutputParameter(clause.getClause_id());
+//            outParameter.setParameterName(output);
+//            outParameter.setClause_id(clause.getClause_id());
+//            parameterDao.insertUpdate(outParameter);
+//
+//            ClauseDao clauseDao = new ClauseDaoImpl();
+//            clauseDao.update(clause);
+//
+//            int shapeNum = funcAction.getChildren().size();
+//            for (int i = 0; i < shapeNum; i++) {
+//                if (funcAction.getChildren().get(i) instanceof LineCom) {
+//                    LineCom lineCom = (LineCom) funcAction.getChildren().get(i);
+//                    LineDao lineDao = new LineDaoImpl();
+//                    Line line = new Line();
+//                    line.setStart_id(lineCom.getStart_id());
+//                    line.setEnd_id(lineCom.getEnd_id());
+//                    line.setClause_id(funcAction.getClause_id());
+//                    line.setLine_id(lineCom.getLine_id());
+//                    lineDao.insertUpdate(line);
+//                }
+//            }
         }
     }
 

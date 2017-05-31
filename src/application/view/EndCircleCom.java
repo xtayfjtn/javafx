@@ -1,12 +1,11 @@
-package application.Util;
+package application.view;
 
 import application.controller.ComponentController;
+import application.util.CompContextMenu;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.*;
-import javafx.scene.shape.Circle;
 
 /**
  * Created by ZQ on 2017/4/19.

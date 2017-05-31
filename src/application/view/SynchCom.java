@@ -1,8 +1,10 @@
-package application.Util;
+package application.view;
 
 import application.controller.ComponentController;
+import application.util.CompContextMenu;
+import application.view.BaseCom;
+import application.view.DrawPane;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
@@ -12,7 +14,7 @@ import javafx.scene.shape.Line;
  * 线控件
  * Created by ZQ on 2017/4/19.
  */
-public class SynchCom extends Line implements BaseCom{
+public class SynchCom extends Line implements BaseCom {
 
     //主布局宽度
 //    private double pWidth;

@@ -1,17 +1,14 @@
-package application.Util;
+package application.util;
 
 import application.controller.ComponentattrController;
+import application.view.CircleCom;
+import application.view.EllipseCom;
+import application.view.PolygonCom;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;

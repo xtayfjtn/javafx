@@ -1,5 +1,6 @@
-package application.Util;
+package application.view;
 
+import application.util.CompContextMenu;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;

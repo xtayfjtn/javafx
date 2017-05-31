@@ -1,12 +1,7 @@
-package application.Util;
+package application.util;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TreeItem;
-import javafx.scene.input.MouseEvent;
 
 
 /**

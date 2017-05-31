@@ -1,39 +1,24 @@
-package application.Util;
+package application.view;
 
 import application.controller.ComponentController;
 import application.dao.ShapeDao;
 import application.impl.ShapeDaoImpl;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+import application.util.AttrStage;
+import application.util.CompContextMenu;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.RadialGradient;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
-import org.jcp.xml.dsig.internal.dom.DOMUtils;
-
-import javax.print.DocFlavor;
-import java.net.URL;
 
 /**
  * Created by ZQ on 2017/4/15.
  */
-public class CircleCom extends Circle implements BaseCom{
+public class CircleCom extends Circle implements BaseCom {
 
     public Label attr;
     protected double mradius;
@@ -55,7 +40,7 @@ public class CircleCom extends Circle implements BaseCom{
     public CircleCom(DoubleProperty x, DoubleProperty y, double radius, DrawPane pane) {
         super(x.get(), y.get(), radius);
         x.bind(centerXProperty());
-        y.bind(centerXProperty());
+        y.bind(centerYProperty());
 //        pWidth = pane.getWidth();
 //        pHeight = pane.getHeight();
         parentPane = pane;

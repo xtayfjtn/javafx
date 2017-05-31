@@ -1,6 +1,6 @@
 package application.controller;
 
-import application.Util.TextFieldTreeCellImpl;
+import application.util.TextFieldTreeCellImpl;
 import application.dao.ClauseDao;
 import application.dao.ProjectDao;
 import application.impl.ClauseDaoImpl;
