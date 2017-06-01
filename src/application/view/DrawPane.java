@@ -33,8 +33,6 @@ public class DrawPane extends Pane {
     public DoubleProperty endX;
     public DoubleProperty endY;
     public LineCom line;
-    public boolean startEmpty = true;
-    public boolean endEmpty = true;
     public boolean isLine = false;
 
     public int type = 0;

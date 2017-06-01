@@ -6,7 +6,7 @@
 
 #mMiddle {
     -fx-alignment: center;
-    -fx-background-color: aqua;
+    /*-fx-background-color: aqua;*/
 }
 
 .canvasto {
@@ -14,7 +14,7 @@
 }
 
 .wodepane {
-    -fx-background-color: aqua;
+    /*-fx-background-color: aqua;*/
     -fx-border-color: #000000;
 }
 

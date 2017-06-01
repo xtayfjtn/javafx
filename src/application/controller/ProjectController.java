@@ -51,7 +51,7 @@ public class ProjectController implements Initializable {
     public void openProject(String name) {
         ProjectDao projectDao = new ProjectDaoImpl();
         Project project = projectDao.findByProjectName(name);
-        TreeItem<Object> mRoot = new TreeItem<>(project.getProjectName());
+        TreeItem<Object> mRoot = new TreeItem<>(project);
 
         ClauseDao clauseDao = new ClauseDaoImpl();
         List<Clause> clauses = clauseDao.selectByProject(project.getProject_id());
@@ -65,7 +65,6 @@ public class ProjectController implements Initializable {
         projectTree.setRoot(mRoot);
         projectTree.setEditable(true);
         projectTree.setCellFactory((TreeView<Object> p) -> new TextFieldTreeCellImpl(mainController));
-//        projectTree.setCellFactory((ModelTreeItem<String> p) -> new TextFieldTreeCellImpl(mainController));
     }
 
     public void drawTree(TreeItem father, Clause clause) {
@@ -78,15 +77,13 @@ public class ProjectController implements Initializable {
             while (iterator.hasNext()) {
                 Clause c = iterator.next();
                 TreeItem<Clause> item = new TreeItem<Clause>(c);
-//                TreeItem<Object> item = new TreeItem(c.getClauseName());
-//                ModelTreeItem item = new ModelTreeItem(c.getClauseName(), projectTree);
                 father.getChildren().add(item);
                 drawTree(item, c);
             }
         }
     }
 
-    public void newModel(String name, TextFieldTreeCellImpl textFieldTreeCell) {
+    public void newModule(String name, TextFieldTreeCellImpl textFieldTreeCell) {
         Clause clause = new Clause();
         clause.setClauseName(name);
         clause.setcType("模块");

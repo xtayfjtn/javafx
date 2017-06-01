@@ -19,7 +19,7 @@
                      <children>
                         <ImageView fitHeight="70.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resource/images/timg.jpg" />
+                              <Image url="@../resource/images/arrow.png" />
                            </image>
                         </ImageView>
                      </children>

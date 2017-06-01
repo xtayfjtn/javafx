@@ -10,3 +10,8 @@
     -fx-background-color: aqua;
     -fx-fill: brown;
 }
+
+.tab-pane {
+    -fx-border-color: aqua;
+    /*-fx-background-color: aqua;*/
+}

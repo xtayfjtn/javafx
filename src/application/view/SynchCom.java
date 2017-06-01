@@ -16,9 +16,6 @@ import javafx.scene.shape.Line;
  */
 public class SynchCom extends Line implements BaseCom {
 
-    //主布局宽度
-//    private double pWidth;
-//    private double pHeight;
     private DrawPane parentPane;
     private int shape_id;
     //控件宽度

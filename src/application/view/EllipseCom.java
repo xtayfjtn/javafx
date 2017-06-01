@@ -19,8 +19,6 @@ public class EllipseCom extends Ellipse implements BaseCom {
     private double mradiusX;
     private double mradiusY;
     private int shape_id;
-//    private double pWidth;
-//    private double pHeight;
     private DrawPane parentPane;
 
     //双击事件所有变量。
@@ -35,8 +33,6 @@ public class EllipseCom extends Ellipse implements BaseCom {
 
     public EllipseCom(double radiusX, double radiusY, DrawPane pane) {
         super(radiusX, radiusY);
-//        pWidth = pane.getWidth();
-//        pHeight = pane.getHeight();
         parentPane = pane;
         mradiusX = radiusX;
         mradiusY = radiusY;
@@ -48,8 +44,6 @@ public class EllipseCom extends Ellipse implements BaseCom {
         super(centerX, centerY, radiusX, radiusY);
         setFill(Color.BISQUE);
         setStroke(Color.BLACK);
-//        pWidth = pane.getWidth();
-//        pHeight = pane.getHeight();
         mradiusX = radiusX;
         mradiusY = radiusY;
         parentPane = pane;
@@ -59,20 +53,6 @@ public class EllipseCom extends Ellipse implements BaseCom {
 //        pane.getChildren().add(attr);
         addEvent();
     }
-//    public EllipseCom(double centerX, double centerY, double radiusX, double radiusY, DrawPane pane, Label text) {
-//        super(centerX, centerY, radiusX, radiusY);
-//        attr = text;
-//        setFill(Color.BISQUE);
-//        setStroke(Color.BLACK);
-//        text.layoutXProperty().bind(centerXProperty().add(-20));
-//        text.layoutYProperty().bind(centerYProperty());
-////        pWidth = pane.getWidth();
-////        pHeight = pane.getHeight();
-//        mradiusX = radiusX;
-//        mradiusY = radiusY;
-//        parentPane = pane;
-//        addEvent();
-//    }
 
     private void addEvent() {
         final Delta dragDelta = new Delta();

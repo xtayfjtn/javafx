@@ -28,13 +28,13 @@ public class TextFieldTreeCellImpl extends TreeCell<Object> {
         this.mainController = mainController;
         MenuItem addMenuItem = new MenuItem("添加模块");
         addMenuItem.setOnAction((ActionEvent t) -> {
-            mainController.initModel(this);
+            mainController.initModule(this);
         });
         projectMenu.getItems().add(addMenuItem);
 
         MenuItem modelInfoItem = new MenuItem("查看详情");
         modelInfoItem.setOnAction(event -> {
-            mainController.editModel(this);
+            mainController.editModule(this);
         });
         MenuItem addFuncItem = new MenuItem("添加功能点");
         addFuncItem.setOnAction((ActionEvent t) -> {
@@ -63,7 +63,7 @@ public class TextFieldTreeCellImpl extends TreeCell<Object> {
             Clause clause = (Clause)getItem();
             if (clause.getcType().equals("模块"))
             {
-                mainController.editModel(this);
+                mainController.editModule(this);
             } else {
                 mainController.editFunc(this);
             }
@@ -71,7 +71,7 @@ public class TextFieldTreeCellImpl extends TreeCell<Object> {
 //        if (!getTreeItem().isLeaf() && getTreeItem().getParent() == null) {
 ////                mainController.editFunc(this);
 //        } else if (getTreeItem().getParent() != null && getTreeItem().getParent().getParent() == null) {
-//            mainController.editModel(this);
+//            mainController.editModule(this);
 //        } else {
 //            mainController.editFunc(this);
 //        }

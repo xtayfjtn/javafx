@@ -25,9 +25,6 @@ public class PolygonCom extends Polygon implements BaseCom {
     final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
 
     private int shape_id;
-    //pane的宽度和高度
-//    private double pWidth;
-//    private double pHeight;
 
     private double xOffset;
     private double yOffset;
@@ -121,8 +118,6 @@ public class PolygonCom extends Polygon implements BaseCom {
         super(points);
         setCenter();
         bindCenter();
-//        pWidth = pane.getWidth();
-//        pHeight = pane.getHeight();
         attr = text;
         attr.layoutXProperty().bind(getCenterX());
         attr.layoutYProperty().bind(getCenterY());
